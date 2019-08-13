@@ -549,65 +549,54 @@ class SSM_memb_list_subscriptions
 		                    {  
 								$status = $sub_val->status;
 								//echo '<pre>'; print_r($sub_val); exit;
-								if($status == 'active'){								
-								$total_amt1 = $sub_val->plan->amount; 	
-                                $amount = (int)$total_amt1 / 100;
-								$amt_str = '';
-								if(is_float($amount))
-								{
-									$amt_str = $amount.' '.$sub_val->plan->currency;
-								} else {
-									$amt_str = $amount.'.00 '.$sub_val->plan->currency;
-								}
-								
-								//$amt = $total_amt.'.00 '.$sub_val->plan->currency;
-								/*
-		                        if (isset($sub_val->plan->name) && !empty($sub_val->plan->name))
-		                        {
-		                            $subname = $sub_val->plan->name;
-		                        }
-		                        else
-		                        {
-		                            $subname = $sub_val->id;
-		                        }
-								*/
-								$subname = $sub_val->plan->name;
-								if($subname == '')
-								{
-									$subname = $sub_val->plan->nickname;
-								}
-								if($subname == '')
-								{
-									$subname = $sub_val->lines->data[0]->description;
-								}
-								$sub_id = $sub_val->id;
-								
-                                if(isset($sub_val->cancel_at_period_end) && $sub_val->cancel_at_period_end == 1)
-								{
-									?>  
-                                    <tr style="">
-                                        <td><?php echo $subname; ?></td>
-                                        <td><?php echo $amt_str; ?></td>
-                                        <td><?php echo date('m/d/Y', $sub_val->billing_cycle_anchor); ?></td>
-                                        <td class="action"> 
-											<?php echo 'Will be cancelled at '.date("m/d/Y", $sub_val->cancel_at); ?>
-                                        </td>
-                                    </tr>   
-                                 <?php 
-								} else{
-                                ?>  
-                                    <tr style="">
-                                        <td><?php echo $subname; ?></td>
-                                        <td><?php echo $amt_str; ?></td>
-                                        <td><?php echo date('m/d/Y', $sub_val->billing_cycle_anchor); ?></td>
-                                        <td class="action"> 
-											<span id='<?php echo $sub_id; ?>' onclick="sub_status_inactive_EndOfCycle('<?php echo $sub_id; ?>')" class="cancle">Cancel</span>
-                                        </td>
-                                    </tr>   
-                                 <?php 
-								}
-								
-                                $total_activeSub++;
+								if($status == 'active' || $status == 'trialing'){
+                                    $total_amt1 = $sub_val->plan->amount;
+                                    $amount = (int)$total_amt1 / 100;
+
+                                    if(is_float($amount))
+                                    {
+                                        $amt_str = $amount.' '.$sub_val->plan->currency;
+                                    } else {
+                                        $amt_str = $amount.'.00 '.$sub_val->plan->currency;
+                                    }
+
+                                    $subname = $sub_val->plan->name;
+                                    if($subname == '')
+                                    {
+                                        $subname = $sub_val->plan->nickname;
+                                    }
+                                    if($subname == '')
+                                    {
+                                        $subname = $sub_val->lines->data[0]->description;
+                                    }
+                                    $sub_id = $sub_val->id;
+
+                                    if(isset($sub_val->cancel_at_period_end) && $sub_val->cancel_at_period_end == 1)
+                                    {
+                                        ?>
+                                        <tr style="">
+                                            <td><?php echo $subname; ?></td>
+                                            <td><?php echo $amt_str; ?></td>
+                                            <td><?php echo date('m/d/Y', $sub_val->billing_cycle_anchor); ?></td>
+                                            <td class="action">
+                                                <?php echo 'Will be cancelled at '.date("m/d/Y", $sub_val->cancel_at); ?>
+                                            </td>
+                                        </tr>
+                                     <?php
+                                    } else {
+                                    ?>
+                                        <tr style="">
+                                            <td><?php echo $subname; ?></td>
+                                            <td><?php echo $amt_str; ?></td>
+                                            <td><?php echo date('m/d/Y', $sub_val->billing_cycle_anchor); ?></td>
+                                            <td class="action">
+                                                <span id='<?php echo $sub_id; ?>' onclick="sub_status_inactive_EndOfCycle('<?php echo $sub_id; ?>')" class="cancle">Cancel</span>
+                                            </td>
+                                        </tr>
+                                     <?php
+                                    }
+
+                                    $total_activeSub++;
 								}
 		                    }
 		                }
