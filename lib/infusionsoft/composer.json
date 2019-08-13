@@ -1,0 +1,5 @@
+{
+    "require": {
+        "infusionsoft/php-sdk": "^1.4"
+    }
+}
