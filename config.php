@@ -13,4 +13,3 @@ require_once plugin_dir_path(__FILE__).'lib/stripe/init.php';
 $key_api = get_option('SSM_stripe_api_key');
 
 Stripe\Stripe::setApiKey($key_api); 
-?>
