@@ -1,0 +1,16 @@
+{
+    "name": "nexusmerchants/wp-stripe-customer-portal",
+    "description": "Stripe Customer Portal WordPress Plugin",
+    "type": "wordpress-plugin",
+    "license": "GPL-2.0-or-later",
+    "authors": [
+        {
+            "name": "Peter Harlacher",
+            "email": "harlacher@protonmail.com"
+        }
+    ],
+    "require": {
+        "php": "^7.4|^8.0",
+        "stripe/stripe-php": "^7.79"
+    }
+}

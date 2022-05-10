@@ -1,19 +1,20 @@
-=== WP Stripe Customer Portal ===
-Contributors: nexusmerchants, tacocode
-Donate link: https://www.orderforms.com
-Tags: stripe, billing, customer, subscription, invoice, checkout, credit-card
-Requires at least: 5.7.2
-Tested up to: 5.9.3
-Stable tag: trunk
-Requires PHP: 7.4
-License: GPLv2 or later
+# WP Stripe Customer Portal
+
+Contributors: nexusmerchants, tacocode  
+Donate link: https://www.orderforms.com  
+Tags: stripe, billing, customer, subscription, invoice, checkout, credit-card  
+Requires at least: 5.7.2  
+Tested up to: 5.9.3  
+Stable tag: trunk   
+Requires PHP: 7.4   
+License: GPLv2 or later 
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
 Provides shortcodes for Stripe Invoices, Subscriptions & Cards.
 
-== Description ==
+## Description
 
-WP Stripe Customer Portal provides shortcodes which allows the currently signed-in user to
+WP Stripe Customer Portal provides shortcodes which allows the currently signed in user to
 manage their Stripe subscriptions, see their invoices & manage their cards:
 
 - `[wpscp_list_subscriptions allow-cancel="true"]`
@@ -29,33 +30,35 @@ manage their Stripe subscriptions, see their invoices & manage their cards:
 - `[wpscp_add_card]`
   Allows a user to add a new card. The newly added card will be set as default.
 
-#### Notes:
+**Notes:**
 
-- On first visit of any page containing a `wpscp_*` shortcode, the currently signed-in user will be looked up
+- On first visit of any of the pages containing a `wpscp_*` shortcode, the currently signed in user will be looked up
   in Stripe using the user's email address. If not matching customer is found, a customer will be created.
-
-- If needed, an administrator can manually link a Stripe customer ID to a user by editing the affected user profile
+  
+- If needed, an administrator can manually link a Stripe cutomer ID to a user by editing the affected user profile 
   in WP Admin and updating the `Stripe Customer ID` field.
 
-- If an administrator updates the email address of any user in WP Admin, the Stripe customer email will be updated as
+- If an administrator updates the email address of any user in WP Admin, the Stripe customer email will be updated as 
   well (or created if the customer doesn't exist).
 
 - If a user updates their email address in WordPress, **_their email will not be updated in Stripe_**.
 
 - Responses from Stripe are being cached for 15 minutes to avoid excessive API calls.
 
-== Installation ==
+## Installation
 
 1. Upload `wp-stripe-customer-portal` to the `/wp-content/plugins/` directory
 2. Activate the plugin through the 'Plugins' menu in WordPress
 3. Place any of the `[wpscp_*]` shortcodes into your pages
 
-== Changelog ==
+---
 
-= 1.1.0 =
-* Initial release
+## Changelog
 
-== Upgrade Notice ==
+**1.1.0**   
+- Initial release
 
-= 4.0.0 =
-* This upgrade is incompatible with previous versions as it replaces all shortcodes.
+## Upgrade Notice
+
+**4.0.0**
+- This upgrade is incompatible with previous versions as it replaces all shortcodes. 

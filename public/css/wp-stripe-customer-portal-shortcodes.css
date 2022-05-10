@@ -1,0 +1,98 @@
+/* Wrapper */
+.wpscp {}
+
+/* Add Card */
+.wpscp.add-card .field-group {
+    margin: 2rem 0;
+}
+
+.wpscp.add-card input {
+    font-size: 1em;
+    line-height: 1.2em;
+    padding: 1rem 2rem;
+    background-color: white;
+    color: #444;
+    border: 1px solid #444;
+    border-radius: .5rem;
+}
+
+.wpscp.add-card button[type="submit"] {
+    padding: 1rem 2rem;
+    background-color: white;
+    color: #444;
+    border: 1px solid #444;
+    border-radius: .5rem;
+}
+
+.wpscp.add-card #card-element {
+    padding: 1rem 2rem;
+    background-color: white;
+    color: #444;
+    border: 1px solid #444;
+    border-radius: .5rem;
+}
+
+.wpscp.add-card #card-error {
+    font-size: 1em;
+    line-height: 1.2em;
+    color: #ff0000;
+    margin: 2rem 0;
+}
+
+.wpscp.add-card #card-success {
+    font-size: 1em;
+    line-height: 1.2em;
+    color: #00b300;
+    margin: 2rem 0;
+}
+
+/* List Cards */
+.wpscp.wpscp-cards table {
+    table-layout: auto;
+}
+
+.wpscp.wpscp-cards thead th {
+    white-space: nowrap;
+}
+
+.wpscp.wpscp-cards tbody td {
+    font-size: 0.8em;
+    white-space: nowrap;
+}
+
+/* List Subscriptions */
+.wpscp.wpscp-subscriptions table {
+    table-layout: auto;
+}
+
+.wpscp.wpscp-subscriptions tbody td {
+    font-size: 0.8em;
+    white-space: nowrap;
+}
+
+.wpscp.wpscp-subscriptions .action-column {
+    text-align: center;
+}
+
+.wpscp.wpscp-subscriptions .btn-cancel-subscription {
+    padding: 0.6rem 1rem;
+    background-color: white;
+    color: #444;
+    border: 1px solid #444;
+    border-radius: .5rem;
+    font-size: 0.75em;
+}
+
+/* List Invoices */
+.wpscp.wpscp-invoices table {
+    table-layout: auto;
+}
+
+.wpscp.wpscp-invoices thead th {
+    white-space: nowrap;
+}
+
+.wpscp.wpscp-invoices tbody td {
+    font-size: 0.8em;
+    white-space: nowrap;
+}
