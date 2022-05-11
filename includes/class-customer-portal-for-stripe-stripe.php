@@ -34,7 +34,7 @@ class Customer_Portal_For_Stripe_Stripe
         $stripeOptions = empty($expand) ? null : [ 'expand' => array_values($expand) ];
         $user          = empty($userId) ? wp_get_current_user() : get_user_by('id', $userId);
 
-        $transientKey = 'wpscpStripeCustomer_' . $user->ID;
+        $transientKey = 'cpfsStripeCustomer_' . $user->ID;
         $customer     = get_transient($transientKey);
 
         if ($customer === false) {
@@ -134,7 +134,7 @@ class Customer_Portal_For_Stripe_Stripe
      */
     public function getCards(Customer $customer)
     {
-        $transientKey = 'wpscpStripeCards_' . $customer->id;
+        $transientKey = 'cpfsStripeCards_' . $customer->id;
         $data         = get_transient($transientKey);
 
         if ($data === false) {
@@ -161,7 +161,7 @@ class Customer_Portal_For_Stripe_Stripe
      */
     public function getInvoices(Customer $customer, $stripeOptions = null)
     {
-        $transientKey = 'wpscpStripeInvoices_' . $customer->id;
+        $transientKey = 'cpfsStripeInvoices_' . $customer->id;
         $data         = get_transient($transientKey);
 
         if ($data === false) {
@@ -187,7 +187,7 @@ class Customer_Portal_For_Stripe_Stripe
      */
     public function getSubscriptions(Customer $customer)
     {
-        $transientKey = 'wpscpStripeSubscriptions_' . $customer->id;
+        $transientKey = 'cpfsStripeSubscriptions_' . $customer->id;
         $data         = get_transient($transientKey);
 
         if ($data === false) {
@@ -245,7 +245,7 @@ class Customer_Portal_For_Stripe_Stripe
             ], 422);
         }
 
-        $transientKey = 'wpscpStripeSubscriptions_' . $subscription->customer;
+        $transientKey = 'cpfsStripeSubscriptions_' . $subscription->customer;
         delete_transient($transientKey);
 
         return wp_send_json_success([
@@ -284,7 +284,7 @@ class Customer_Portal_For_Stripe_Stripe
             ], 422);
         }
 
-        $transientKey = 'wpscpStripeCards_' . $customer->id;
+        $transientKey = 'cpfsStripeCards_' . $customer->id;
         delete_transient($transientKey);
 
         return wp_send_json_success([
@@ -319,7 +319,7 @@ class Customer_Portal_For_Stripe_Stripe
                 throw $e;
             }
 
-            $transientKey = 'wpscpStripeCustomer_' . $user->ID;
+            $transientKey = 'cpfsStripeCustomer_' . $user->ID;
             delete_transient($transientKey);
         }
     }
