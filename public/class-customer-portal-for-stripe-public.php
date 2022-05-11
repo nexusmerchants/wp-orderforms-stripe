@@ -98,7 +98,7 @@ class Customer_Portal_For_Stripe_Public {
 		global $post;
 		foreach ( Customer_Portal_For_Stripe_Shortcodes::$shortcodes as $shortcode ) {
 			if ( ! empty( $post ) && has_shortcode( $post->post_content, $shortcode ) ) {
-				wp_enqueue_style( 'tachyons',
+				wp_enqueue_style( $this->plugin_name . '_shortcodes',
 					plugin_dir_url( __FILE__ ) . 'css/customer-portal-for-stripe-shortcodes.css', array(),
 					$this->version, 'all' );
 			}
