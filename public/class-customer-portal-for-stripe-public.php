@@ -1,4 +1,7 @@
 <?php
+
+namespace WPCustomerPortalForStripe;
+
 /**
  * The public-facing functionality of the plugin.
  *

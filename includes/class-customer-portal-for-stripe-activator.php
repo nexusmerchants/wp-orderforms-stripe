@@ -1,4 +1,7 @@
 <?php
+
+namespace WPCustomerPortalForStripe;
+
 /**
  * Fired during plugin activation
  *

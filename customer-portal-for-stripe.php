@@ -60,7 +60,7 @@ define('CUSTOMER_PORTAL_FOR_STRIPE_REQUIRED_PHP_VERSION', '7.4');
 function activate_customer_portal_for_stripe()
 {
     require_once plugin_dir_path(__FILE__) . 'includes/class-customer-portal-for-stripe-activator.php';
-    Customer_Portal_For_Stripe_Activator::activate();
+	WPCustomerPortalForStripe\Customer_Portal_For_Stripe_Activator::activate();
 }
 
 /**
@@ -70,7 +70,7 @@ function activate_customer_portal_for_stripe()
 function deactivate_customer_portal_for_stripe()
 {
     require_once plugin_dir_path(__FILE__) . 'includes/class-customer-portal-for-stripe-deactivator.php';
-    Customer_Portal_For_Stripe_Deactivator::deactivate();
+	WPCustomerPortalForStripe\Customer_Portal_For_Stripe_Deactivator::deactivate();
 }
 
 register_activation_hook(__FILE__, 'activate_customer_portal_for_stripe');
@@ -98,7 +98,7 @@ require plugin_dir_path(__FILE__) . 'includes/class-customer-portal-for-stripe.p
  */
 function run_customer_portal_for_stripe()
 {
-    $plugin = new Customer_Portal_For_Stripe();
+    $plugin = new WPCustomerPortalForStripe\Customer_Portal_For_Stripe();
     $plugin->run();
 }
 

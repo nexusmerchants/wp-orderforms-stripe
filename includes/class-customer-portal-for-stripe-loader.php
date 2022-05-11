@@ -1,4 +1,7 @@
 <?php
+
+namespace WPCustomerPortalForStripe;
+
 /**
  * Register all actions and filters for the plugin
  *

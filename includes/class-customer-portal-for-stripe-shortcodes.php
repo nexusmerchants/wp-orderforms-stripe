@@ -1,4 +1,7 @@
 <?php
+
+namespace WPCustomerPortalForStripe;
+
 /**
  * Class Customer_Portal_For_Stripe_Shortcodes
  */

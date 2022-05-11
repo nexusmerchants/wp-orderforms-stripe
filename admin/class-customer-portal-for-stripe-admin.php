@@ -1,4 +1,7 @@
 <?php
+
+namespace WPCustomerPortalForStripe;
+
 /**
  * The admin-specific functionality of the plugin.
  *

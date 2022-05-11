@@ -1,5 +1,7 @@
 <?php
 
+namespace WPCustomerPortalForStripe;
+
 use Stripe\Customer;
 
 /**
