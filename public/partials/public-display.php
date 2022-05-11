@@ -10,6 +10,7 @@
  * @package    Customer_Portal_For_Stripe
  * @subpackage Customer_Portal_For_Stripe/public/partials
  */
+
 ?>
 
 <!-- This file should primarily consist of HTML with a little bit of PHP. -->
