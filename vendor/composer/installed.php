@@ -5,18 +5,18 @@
         'type' => 'wordpress-plugin',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
-        'reference' => '5b8636882f494440f040b73fd3a243e90dbb950a',
-        'name' => 'nexusmerchants/wp-stripe-billing-portal',
+        'reference' => '1119078d7179c450516e662fa276e8135fc0acaf',
+        'name' => 'nexusmerchants/customer-portal-for-stripe',
         'dev' => true,
     ),
     'versions' => array(
-        'nexusmerchants/wp-stripe-billing-portal' => array(
+        'nexusmerchants/customer-portal-for-stripe' => array(
             'pretty_version' => 'dev-develop',
             'version' => 'dev-develop',
             'type' => 'wordpress-plugin',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),
-            'reference' => '5b8636882f494440f040b73fd3a243e90dbb950a',
+            'reference' => '1119078d7179c450516e662fa276e8135fc0acaf',
             'dev_requirement' => false,
         ),
         'stripe/stripe-php' => array(
