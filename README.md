@@ -5,7 +5,7 @@ Donate link: https://www.orderforms.com
 Tags: stripe, billing, customer, subscription, invoice, checkout, credit-card  
 Requires at least: 5.7.2  
 Tested up to: 5.9.3  
-Stable tag: trunk   
+Stable tag: 4.1.0   
 Requires PHP: 7.4   
 License: GPLv2 or later 
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
@@ -55,10 +55,13 @@ manage their Stripe subscriptions, see their invoices & manage their cards:
 
 ## Changelog
 
+**4.1.0**
+- Complete plugin rewrite
+
 **1.1.0**   
 - Initial release
 
 ## Upgrade Notice
 
-**4.0.0**
+**4.1.0**
 - This upgrade is incompatible with previous versions as it replaces all shortcodes. 
