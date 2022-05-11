@@ -9,10 +9,10 @@
  *
  * @link              https://www.nexusmerchants.com
  * @since             1.0.0
- * @package           Wp_Stripe_Customer_Portal
+ * @package           Customer_Portal_For_Stripe
  *
  * @wordpress-plugin
- * Plugin Name:       WP Stripe Customer Portal
+ * Plugin Name:       Customer Portal for Stripe
  * Plugin URI:        https://www.orderforms.com
  * Description:       Provides shortcodes for Stripe Invoices, Subscriptions & Cards.
  * Version:           4.0.0
@@ -20,7 +20,7 @@
  * Author URI:        https://www.nexusmerchants.com
  * License:           GPL-2.0+
  * License URI:       http://www.gnu.org/licenses/gpl-2.0.txt
- * Text Domain:       wp-stripe-customer-portal
+ * Text Domain:       customer-portal-for-stripe
  * Domain Path:       /languages
  */
 
@@ -32,47 +32,47 @@ if ( ! defined( 'WPINC' ) ) {
 /**
  * Path to plugin
  */
-define( 'WP_STRIPE_CUSTOMER_PORTAL_PLUGIN_PATH', plugin_dir_path( __FILE__ ) );
+define( 'CUSTOMER_PORTAL_FOR_STRIPE_PLUGIN_PATH', plugin_dir_path( __FILE__ ) );
 
 /**
  * Textdomain
  */
-define( 'WP_STRIPE_CUSTOMER_PORTAL_PLUGIN_TEXTDOMAIN', 'wp-stripe-customer-portal' );
+define( 'CUSTOMER_PORTAL_FOR_STRIPE_PLUGIN_TEXTDOMAIN', 'customer-portal-for-stripe' );
 
 /**
  * Currently plugin version.
  * Start at version 1.0.0 and use SemVer - https://semver.org
  * Rename this for your plugin and update it as you release new versions.
  */
-define( 'WP_STRIPE_CUSTOMER_PORTAL_VERSION', '1.2.0' );
+define( 'CUSTOMER_PORTAL_FOR_STRIPE_VERSION', '1.2.0' );
 
 /**
  * Currently plugin version.
  * Start at version 1.0.0 and use SemVer - https://semver.org
  * Rename this for your plugin and update it as you release new versions.
  */
-define( 'WP_STRIPE_CUSTOMER_PORTAL_REQUIRED_PHP_VERSION', '7.4' );
+define( 'CUSTOMER_PORTAL_FOR_STRIPE_REQUIRED_PHP_VERSION', '7.4' );
 
 /**
  * The code that runs during plugin activation.
- * This action is documented in includes/class-wp-stripe-customer-portal-activator.php
+ * This action is documented in includes/class-customer-portal-for-stripe-activator.php
  */
-function activate_wp_stripe_customer_portal() {
-	require_once plugin_dir_path( __FILE__ ) . 'includes/class-wp-stripe-customer-portal-activator.php';
-	Wp_Stripe_Customer_Portal_Activator::activate();
+function activate_customer_portal_for_stripe() {
+	require_once plugin_dir_path( __FILE__ ) . 'includes/class-customer-portal-for-stripe-activator.php';
+	Customer_Portal_For_Stripe_Activator::activate();
 }
 
 /**
  * The code that runs during plugin deactivation.
- * This action is documented in includes/class-wp-stripe-customer-portal-deactivator.php
+ * This action is documented in includes/class-customer-portal-for-stripe-deactivator.php
  */
-function deactivate_wp_stripe_customer_portal() {
-	require_once plugin_dir_path( __FILE__ ) . 'includes/class-wp-stripe-customer-portal-deactivator.php';
-	Wp_Stripe_Customer_Portal_Deactivator::deactivate();
+function deactivate_customer_portal_for_stripe() {
+	require_once plugin_dir_path( __FILE__ ) . 'includes/class-customer-portal-for-stripe-deactivator.php';
+	Customer_Portal_For_Stripe_Deactivator::deactivate();
 }
 
-register_activation_hook( __FILE__, 'activate_wp_stripe_customer_portal' );
-register_deactivation_hook( __FILE__, 'deactivate_wp_stripe_customer_portal' );
+register_activation_hook( __FILE__, 'activate_customer_portal_for_stripe' );
+register_deactivation_hook( __FILE__, 'deactivate_customer_portal_for_stripe' );
 
 /**
  * Load vendor specific classes
@@ -83,7 +83,7 @@ require plugin_dir_path( __FILE__ ) . 'vendor/autoload.php';
  * The core plugin class that is used to define internationalization,
  * admin-specific hooks, and public-facing site hooks.
  */
-require plugin_dir_path( __FILE__ ) . 'includes/class-wp-stripe-customer-portal.php';
+require plugin_dir_path( __FILE__ ) . 'includes/class-customer-portal-for-stripe.php';
 
 /**
  * Begins execution of the plugin.
@@ -94,9 +94,9 @@ require plugin_dir_path( __FILE__ ) . 'includes/class-wp-stripe-customer-portal.
  *
  * @since    1.0.0
  */
-function run_wp_stripe_customer_portal() {
-	$plugin = new Wp_Stripe_Customer_Portal();
+function run_customer_portal_for_stripe() {
+	$plugin = new Customer_Portal_For_Stripe();
 	$plugin->run();
 }
 
-run_wp_stripe_customer_portal();
+run_customer_portal_for_stripe();

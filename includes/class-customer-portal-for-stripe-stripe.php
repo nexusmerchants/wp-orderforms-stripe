@@ -9,9 +9,9 @@
 use Stripe\Customer;
 
 /**
- * Class Wp_Stripe_Customer_Portal_Shortcodes
+ * Class Customer_Portal_For_Stripe_Shortcodes
  */
-class Wp_Stripe_Customer_Portal_Stripe
+class Customer_Portal_For_Stripe_Stripe
 {
     /**
      * @var \Stripe\StripeClient
@@ -19,11 +19,11 @@ class Wp_Stripe_Customer_Portal_Stripe
     private \Stripe\StripeClient $stripeClient;
 
     /**
-     * Wp_Stripe_Customer_Portal_Stripe constructor.
+     * Customer_Portal_For_Stripe_Stripe constructor.
      */
     public function __construct()
     {
-        $this->stripeClient = new \Stripe\StripeClient(get_option('wpscp_stripe_secret_key', 'invalid_key'));
+        $this->stripeClient = new \Stripe\StripeClient(get_option('cpfs_stripe_secret_key', 'invalid_key'));
     }
 
     /**
@@ -42,7 +42,7 @@ class Wp_Stripe_Customer_Portal_Stripe
         $customer = get_transient($transientKey);
 
         if ($customer === false) {
-            $wpscpStripeCustomerId = get_user_meta($user->ID, 'wpscp_stripe_customer_id', true);
+            $wpscpStripeCustomerId = get_user_meta($user->ID, 'cpfs_stripe_customer_id', true);
 
             if (!empty($wpscpStripeCustomerId)) {
                 $customer = $this->getCustomer($wpscpStripeCustomerId, $stripeOptions);
@@ -94,7 +94,7 @@ class Wp_Stripe_Customer_Portal_Stripe
         }
 
         $customer = $customers->data[0];
-        update_user_meta($user->ID, 'wpscp_stripe_customer_id', $customer->id);
+        update_user_meta($user->ID, 'cpfs_stripe_customer_id', $customer->id);
 
         return $customer;
     }
@@ -112,7 +112,7 @@ class Wp_Stripe_Customer_Portal_Stripe
             'email' => $user->user_email,
         ], $stripeOptions);
 
-        update_user_meta($user->ID, 'wpscp_stripe_customer_id', $customer->id);
+        update_user_meta($user->ID, 'cpfs_stripe_customer_id', $customer->id);
 
         return $customer;
     }

@@ -5,10 +5,10 @@
  * @link       https://www.nexusmerchants.com
  * @since      1.0.0
  *
- * @package    Wp_Stripe_Customer_Portal
- * @subpackage Wp_Stripe_Customer_Portal/public
+ * @package    Customer_Portal_For_Stripe
+ * @subpackage Customer_Portal_For_Stripe/public
  */
-class Wp_Stripe_Customer_Portal_Public {
+class Customer_Portal_For_Stripe_Public {
 
 	/**
 	 * The ID of this plugin.
@@ -53,16 +53,16 @@ class Wp_Stripe_Customer_Portal_Public {
 		 * This function is provided for demonstration purposes only.
 		 *
 		 * An instance of this class should be passed to the run() function
-		 * defined in Wp_Stripe_Customer_Portal_Loader as all of the hooks are defined
+		 * defined in Customer_Portal_For_Stripe_Loader as all of the hooks are defined
 		 * in that particular class.
 		 *
-		 * The Wp_Stripe_Customer_Portal_Loader will then create the relationship
+		 * The Customer_Portal_For_Stripe_Loader will then create the relationship
 		 * between the defined hooks and the functions defined in this
 		 * class.
 		 */
 
-		wp_enqueue_style( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'css/wp-stripe-customer-portal-public.css', array(), $this->version, 'all' );
-        $this->wpscp_enqueue_shortcode_styles();
+		wp_enqueue_style( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'css/customer-portal-for-stripe-public.css', array(), $this->version, 'all' );
+        $this->cpfs_enqueue_shortcode_styles();
 	}
 
 	/**
@@ -76,27 +76,27 @@ class Wp_Stripe_Customer_Portal_Public {
 		 * This function is provided for demonstration purposes only.
 		 *
 		 * An instance of this class should be passed to the run() function
-		 * defined in Wp_Stripe_Customer_Portal_Loader as all of the hooks are defined
+		 * defined in Customer_Portal_For_Stripe_Loader as all of the hooks are defined
 		 * in that particular class.
 		 *
-		 * The Wp_Stripe_Customer_Portal_Loader will then create the relationship
+		 * The Customer_Portal_For_Stripe_Loader will then create the relationship
 		 * between the defined hooks and the functions defined in this
 		 * class.
 		 */
 
-		wp_enqueue_script( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'js/wp-stripe-customer-portal-public.js', array( 'jquery' ), $this->version, false );
-        $this->wpscp_enqueue_shortcode_scripts();
+		wp_enqueue_script( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'js/customer-portal-for-stripe-public.js', array( 'jquery' ), $this->version, false );
+        $this->cpfs_enqueue_shortcode_scripts();
 	}
 
     /**
      * Enqueue CSS required by shortcodes
      */
-    protected function wpscp_enqueue_shortcode_styles()
+    protected function cpfs_enqueue_shortcode_styles()
     {
         global $post;
-        foreach(Wp_Stripe_Customer_Portal_Shortcodes::$shortcodes as $shortcode) {
+        foreach(Customer_Portal_For_Stripe_Shortcodes::$shortcodes as $shortcode) {
             if ( !empty($post) && has_shortcode($post->post_content, $shortcode) ) {
-                wp_enqueue_style( 'tachyons', plugin_dir_url( __FILE__ ) . 'css/wp-stripe-customer-portal-shortcodes.css', array(), $this->version, 'all' );
+                wp_enqueue_style( 'tachyons', plugin_dir_url( __FILE__ ) . 'css/customer-portal-for-stripe-shortcodes.css', array(), $this->version, 'all' );
             }
         }
 	}
@@ -104,10 +104,10 @@ class Wp_Stripe_Customer_Portal_Public {
     /**
      * Enqueue scripts required by shortcodes
      */
-    protected function wpscp_enqueue_shortcode_scripts()
+    protected function cpfs_enqueue_shortcode_scripts()
     {
         global $post;
-        if ( !empty($post) && has_shortcode($post->post_content, 'wpscp_add_card') ) {
+        if ( !empty($post) && has_shortcode($post->post_content, 'cpfs_add_card') ) {
             wp_enqueue_script( 'stripejs_v3', 'https://js.stripe.com/v3/', array( 'jquery' ), null, false );
         }
     }
@@ -115,9 +115,9 @@ class Wp_Stripe_Customer_Portal_Public {
     /**
      * Add custom CSS to wp_head
      */
-    public function wpscp_enqueue_custom_css()
+    public function cpfs_enqueue_custom_css()
     {
-        $wpscpCustomCSS = get_option('wpscp_custom_css');
+        $wpscpCustomCSS = get_option('cpfs_custom_css');
         $wpscpCustomCSS = preg_replace('!/\*[^*]*\*+([^/][^*]*\*+)*/!', '', $wpscpCustomCSS);
         $wpscpCustomCSS = str_replace(': ', ':', $wpscpCustomCSS);
         $wpscpCustomCSS = str_replace(array("\r\n", "\r", "\n", "\t", '  ', '    ', '    '), '', $wpscpCustomCSS);

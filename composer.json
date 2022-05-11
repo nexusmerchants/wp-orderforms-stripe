@@ -1,6 +1,6 @@
 {
-    "name": "nexusmerchants/wp-stripe-customer-portal",
-    "description": "Stripe Customer Portal WordPress Plugin",
+    "name": "nexusmerchants/customer-portal-for-stripe",
+    "description": "Customer Portal For Stripe WordPress Plugin",
     "type": "wordpress-plugin",
     "license": "GPL-2.0-or-later",
     "authors": [

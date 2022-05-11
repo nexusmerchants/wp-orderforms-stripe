@@ -8,10 +8,10 @@
  * @link       https://www.nexusmerchants.com
  * @since      1.0.0
  *
- * @package    Wp_Stripe_Customer_Portal
- * @subpackage Wp_Stripe_Customer_Portal/includes
+ * @package    Customer_Portal_For_Stripe
+ * @subpackage Customer_Portal_For_Stripe/includes
  */
-class Wp_Stripe_Customer_Portal_i18n {
+class Customer_Portal_For_Stripe_i18n {
 
 
 	/**
@@ -22,7 +22,7 @@ class Wp_Stripe_Customer_Portal_i18n {
 	public function load_plugin_textdomain() {
 
 		load_plugin_textdomain(
-			'wp-stripe-customer-portal',
+			'customer-portal-for-stripe',
 			false,
 			dirname( dirname( plugin_basename( __FILE__ ) ) ) . '/languages/'
 		);

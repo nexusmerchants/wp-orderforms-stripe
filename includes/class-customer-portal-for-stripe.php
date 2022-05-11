@@ -8,10 +8,10 @@
  * @link       https://www.nexusmerchants.com
  * @since      1.0.0
  *
- * @package    Wp_Stripe_Customer_Portal
- * @subpackage Wp_Stripe_Customer_Portal/includes
+ * @package    Customer_Portal_For_Stripe
+ * @subpackage Customer_Portal_For_Stripe/includes
  */
-class Wp_Stripe_Customer_Portal {
+class Customer_Portal_For_Stripe {
 
 	/**
 	 * The loader that's responsible for maintaining and registering all hooks that power
@@ -19,7 +19,7 @@ class Wp_Stripe_Customer_Portal {
 	 *
 	 * @since    1.0.0
 	 * @access   protected
-	 * @var      Wp_Stripe_Customer_Portal_Loader    $loader    Maintains and registers all hooks for the plugin.
+	 * @var      Customer_Portal_For_Stripe_Loader    $loader    Maintains and registers all hooks for the plugin.
 	 */
 	protected $loader;
 
@@ -51,12 +51,12 @@ class Wp_Stripe_Customer_Portal {
 	 * @since    1.0.0
 	 */
 	public function __construct() {
-		if ( defined( 'WP_STRIPE_CUSTOMER_PORTAL_VERSION' ) ) {
-			$this->version = WP_STRIPE_CUSTOMER_PORTAL_VERSION;
+		if ( defined( 'CUSTOMER_PORTAL_FOR_STRIPE_VERSION' ) ) {
+			$this->version = CUSTOMER_PORTAL_FOR_STRIPE_VERSION;
 		} else {
 			$this->version = '1.0.0';
 		}
-		$this->plugin_name = 'wp-stripe-customer-portal';
+		$this->plugin_name = 'customer-portal-for-stripe';
 
 		$this->load_dependencies();
 		$this->set_locale();
@@ -71,10 +71,10 @@ class Wp_Stripe_Customer_Portal {
 	 *
 	 * Include the following files that make up the plugin:
 	 *
-	 * - Wp_Stripe_Customer_Portal_Loader. Orchestrates the hooks of the plugin.
-	 * - Wp_Stripe_Customer_Portal_i18n. Defines internationalization functionality.
-	 * - Wp_Stripe_Customer_Portal_Admin. Defines all hooks for the admin area.
-	 * - Wp_Stripe_Customer_Portal_Public. Defines all hooks for the public side of the site.
+	 * - Customer_Portal_For_Stripe_Loader. Orchestrates the hooks of the plugin.
+	 * - Customer_Portal_For_Stripe_i18n. Defines internationalization functionality.
+	 * - Customer_Portal_For_Stripe_Admin. Defines all hooks for the admin area.
+	 * - Customer_Portal_For_Stripe_Public. Defines all hooks for the public side of the site.
 	 *
 	 * Create an instance of the loader which will be used to register the hooks
 	 * with WordPress.
@@ -88,43 +88,43 @@ class Wp_Stripe_Customer_Portal {
 		 * The class responsible for orchestrating the actions and filters of the
 		 * core plugin.
 		 */
-		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/class-wp-stripe-customer-portal-loader.php';
+		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/class-customer-portal-for-stripe-loader.php';
 
 		/**
 		 * The class responsible for defining internationalization functionality
 		 * of the plugin.
 		 */
-		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/class-wp-stripe-customer-portal-i18n.php';
+		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/class-customer-portal-for-stripe-i18n.php';
 
 		/**
 		 * The class responsible for defining all actions that occur in the admin area.
 		 */
-		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'admin/class-wp-stripe-customer-portal-admin.php';
+		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'admin/class-customer-portal-for-stripe-admin.php';
 
 		/**
 		 * The class responsible for defining all actions that occur in the public-facing
 		 * side of the site.
 		 */
-		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'public/class-wp-stripe-customer-portal-public.php';
+		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'public/class-customer-portal-for-stripe-public.php';
 
         /**
          * The class responsible for defining all shortcodes
          */
-        require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/class-wp-stripe-customer-portal-shortcodes.php';
+        require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/class-customer-portal-for-stripe-shortcodes.php';
 
         /**
          * Stripe god class
          */
-        require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/class-wp-stripe-customer-portal-stripe.php';
+        require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/class-customer-portal-for-stripe-stripe.php';
 
-		$this->loader = new Wp_Stripe_Customer_Portal_Loader();
+		$this->loader = new Customer_Portal_For_Stripe_Loader();
 
 	}
 
 	/**
 	 * Define the locale for this plugin for internationalization.
 	 *
-	 * Uses the Wp_Stripe_Customer_Portal_i18n class in order to set the domain and to register the hook
+	 * Uses the Customer_Portal_For_Stripe_i18n class in order to set the domain and to register the hook
 	 * with WordPress.
 	 *
 	 * @since    1.0.0
@@ -132,7 +132,7 @@ class Wp_Stripe_Customer_Portal {
 	 */
 	private function set_locale() {
 
-		$plugin_i18n = new Wp_Stripe_Customer_Portal_i18n();
+		$plugin_i18n = new Customer_Portal_For_Stripe_i18n();
 
 		$this->loader->add_action( 'plugins_loaded', $plugin_i18n, 'load_plugin_textdomain' );
 
@@ -146,9 +146,9 @@ class Wp_Stripe_Customer_Portal {
      */
     private function define_admin_filters()
     {
-        $plugin_admin = new Wp_Stripe_Customer_Portal_Admin( $this->get_plugin_name(), $this->get_version() );
+        $plugin_admin = new Customer_Portal_For_Stripe_Admin( $this->get_plugin_name(), $this->get_version() );
 
-        $this->loader->add_filter( 'plugin_action_links_wp-stripe-customer-portal/wp-stripe-customer-portal.php', $plugin_admin, 'plugin_settings_link' );
+        $this->loader->add_filter( 'plugin_action_links_customer-portal-for-stripe/customer-portal-for-stripe.php', $plugin_admin, 'plugin_settings_link' );
 	}
 
 	/**
@@ -160,7 +160,7 @@ class Wp_Stripe_Customer_Portal {
 	 */
 	private function define_admin_hooks() {
 
-		$plugin_admin = new Wp_Stripe_Customer_Portal_Admin( $this->get_plugin_name(), $this->get_version() );
+		$plugin_admin = new Customer_Portal_For_Stripe_Admin( $this->get_plugin_name(), $this->get_version() );
 
         $this->loader->add_action( 'admin_init', $plugin_admin, 'admin_settings_sections' );
         $this->loader->add_action( 'admin_init', $plugin_admin, 'admin_settings_fields' );
@@ -184,17 +184,17 @@ class Wp_Stripe_Customer_Portal {
 	private function define_public_hooks() {
         global $wpscpStripe;
 
-        $wpscpStripe = new Wp_Stripe_Customer_Portal_Stripe();
-		$plugin_public = new Wp_Stripe_Customer_Portal_Public( $this->get_plugin_name(), $this->get_version() );
-        $plugin_shortcodes = new Wp_Stripe_Customer_Portal_Shortcodes();
+        $wpscpStripe = new Customer_Portal_For_Stripe_Stripe();
+		$plugin_public = new Customer_Portal_For_Stripe_Public( $this->get_plugin_name(), $this->get_version() );
+        $plugin_shortcodes = new Customer_Portal_For_Stripe_Shortcodes();
 
         $this->loader->add_action( 'init', $plugin_shortcodes, 'init_shortcodes' );
         $this->loader->add_action( 'profile_update', $wpscpStripe, 'updateCustomerEmailAddress', 10, 2 );
 		$this->loader->add_action( 'wp_enqueue_scripts', $plugin_public, 'enqueue_styles' );
 		$this->loader->add_action( 'wp_enqueue_scripts', $plugin_public, 'enqueue_scripts' );
-        $this->loader->add_action( 'wp_head', $plugin_public, 'wpscp_enqueue_custom_css' );
-        $this->loader->add_action( 'wp_ajax_wpscp_cancelSubscription', $wpscpStripe, 'cancelSubscription' );
-        $this->loader->add_action( 'wp_ajax_wpscp_setDefaultPaymentMethod', $wpscpStripe, 'setDefaultPaymentMethod' );
+        $this->loader->add_action( 'wp_head', $plugin_public, 'cpfs_enqueue_custom_css' );
+        $this->loader->add_action( 'wp_ajax_cpfs_cancelSubscription', $wpscpStripe, 'cancelSubscription' );
+        $this->loader->add_action( 'wp_ajax_cpfs_setDefaultPaymentMethod', $wpscpStripe, 'setDefaultPaymentMethod' );
 	}
 
 	/**
@@ -221,7 +221,7 @@ class Wp_Stripe_Customer_Portal {
 	 * The reference to the class that orchestrates the hooks with the plugin.
 	 *
 	 * @since     1.0.0
-	 * @return    Wp_Stripe_Customer_Portal_Loader    Orchestrates the hooks of the plugin.
+	 * @return    Customer_Portal_For_Stripe_Loader    Orchestrates the hooks of the plugin.
 	 */
 	public function get_loader() {
 		return $this->loader;

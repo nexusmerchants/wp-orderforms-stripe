@@ -5,8 +5,8 @@
  * @link       https://www.nexusmerchants.com
  * @since      1.0.0
  *
- * @package    Wp_Stripe_Customer_Portal
- * @subpackage Wp_Stripe_Customer_Portal/public/partials
+ * @package    Customer_Portal_For_Stripe
+ * @subpackage Customer_Portal_For_Stripe/public/partials
  */
 ?>
 <div class="wpscp add-card">
@@ -36,7 +36,7 @@
     const cardButton = document.getElementById('card-button');
 
     const clientSecret = setupForm.dataset.secret;
-    const stripe = Stripe('<?php echo get_option('wpscp_stripe_publishable_key'); ?>');
+    const stripe = Stripe('<?php echo get_option('cpfs_stripe_publishable_key'); ?>');
     const elements = stripe.elements();
     const cardElement = elements.create('card', {
         style: {
@@ -55,9 +55,9 @@
     setupForm.addEventListener('submit', function(ev) {
         ev.preventDefault()
 
-        wpscp_clearError()
-        wpscp_clearSuccess()
-        wpscp_disableForm()
+        cpfs_clearError()
+        cpfs_clearSuccess()
+        cpfs_disableForm()
 
         stripe.confirmCardSetup(
             clientSecret,
@@ -70,48 +70,48 @@
                 },
             }
         ).then(function(result) {
-            wpscp_enableForm()
+            cpfs_enableForm()
             if (result.error) {
                 // console.error(result.error)
-                wpscp_showError(result.error.message)
+                cpfs_showError(result.error.message)
             } else {
-                wpscp_setDefaultPaymentMethod(result)
+                cpfs_setDefaultPaymentMethod(result)
                 setupForm.reset()
                 cardElement.clear()
-                wpscp_showSuccess()
+                cpfs_showSuccess()
             }
         });
     });
 
-    wpscp_disableForm = () => {
+    cpfs_disableForm = () => {
         cardholderName.disabled = true
         cardElementWrapper.disabled = true
         cardButton.disabled = true
     }
 
-    wpscp_enableForm = () => {
+    cpfs_enableForm = () => {
         cardholderName.disabled = false
         cardElementWrapper.disabled = false
         cardButton.disabled = false
     }
 
-    wpscp_showError = (message) => {
+    cpfs_showError = (message) => {
         cardError.innerText = message || 'Please try again'
     }
 
-    wpscp_clearError = () => {
+    cpfs_clearError = () => {
         cardError.innerText = ''
     }
 
-    wpscp_showSuccess = (message) => {
+    cpfs_showSuccess = (message) => {
         cardSuccess.innerText = message || 'Card successfully added'
     }
 
-    wpscp_clearSuccess = (message) => {
+    cpfs_clearSuccess = (message) => {
         cardSuccess.innerText = ''
     }
 
-    wpscp_setDefaultPaymentMethod = (result) => {
+    cpfs_setDefaultPaymentMethod = (result) => {
         const paymentMethod = result.setupIntent?.payment_method || null
         if (paymentMethod) {
             var ajaxurl = "<?= admin_url('admin-ajax.php'); ?>";
@@ -119,7 +119,7 @@
                 method: "POST",
                 url: ajaxurl,
                 data: {
-                    action: 'wpscp_setDefaultPaymentMethod',
+                    action: 'cpfs_setDefaultPaymentMethod',
                     paymentMethod: paymentMethod,
                 }
             }).done((response) => {

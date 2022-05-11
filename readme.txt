@@ -1,4 +1,4 @@
-=== WP Stripe Customer Portal ===
+=== Customer Portal for Stripe ===
 Contributors: nexusmerchants, tacocode
 Donate link: https://www.orderforms.com
 Tags: stripe, billing, customer, subscription, invoice, checkout, credit-card
@@ -13,25 +13,25 @@ Provides shortcodes for Stripe Invoices, Subscriptions & Cards.
 
 == Description ==
 
-WP Stripe Customer Portal provides shortcodes which allows the currently signed-in user to
+Customer Portal for Stripe provides shortcodes which allows the currently signed-in user to
 manage their Stripe subscriptions, see their invoices & manage their cards:
 
-- `[wpscp_list_subscriptions allow-cancel="true"]`
+- `[cpfs_list_subscriptions allow-cancel="true"]`
   Lists up to 10 Stripe subscriptions. The default value for`allow-cancel` is `false`.
   To allow a user to cancel their subscriptions, set `allow-cancel="true"`.
 
-- `[wpscp_list_invoices]`
+- `[cpfs_list_invoices]`
   Lists up to 10 Stripe invoices.
 
-- `[wpscp_list_cards]`
+- `[cpfs_list_cards]`
   Lists up to 10 credit cards stored at Stripe.
 
-- `[wpscp_add_card]`
+- `[cpfs_add_card]`
   Allows a user to add a new card. The newly added card will be set as default.
 
 #### Notes:
 
-- On first visit of any page containing a `wpscp_*` shortcode, the currently signed-in user will be looked up
+- On first visit of any page containing a `cpfs_*` shortcode, the currently signed-in user will be looked up
   in Stripe using the user's email address. If not matching customer is found, a customer will be created.
 
 - If needed, an administrator can manually link a Stripe customer ID to a user by editing the affected user profile
@@ -46,9 +46,9 @@ manage their Stripe subscriptions, see their invoices & manage their cards:
 
 == Installation ==
 
-1. Upload `wp-stripe-customer-portal` to the `/wp-content/plugins/` directory
+1. Upload `customer-portal-for-stripe` to the `/wp-content/plugins/` directory
 2. Activate the plugin through the 'Plugins' menu in WordPress
-3. Place any of the `[wpscp_*]` shortcodes into your pages
+3. Place any of the `[cpfs_*]` shortcodes into your pages
 
 == Changelog ==
 

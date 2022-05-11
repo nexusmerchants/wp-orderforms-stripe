@@ -22,7 +22,7 @@
  * @link       https://www.nexusmerchants.com
  * @since      1.0.0
  *
- * @package    Wp_Stripe_Customer_Portal
+ * @package    Customer_Portal_For_Stripe
  */
 
 // If uninstall not called from WordPress, then exit.

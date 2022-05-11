@@ -7,15 +7,15 @@
  */
 
 /**
- * Class Wp_Stripe_Customer_Portal_Shortcodes
+ * Class Customer_Portal_For_Stripe_Shortcodes
  */
-class Wp_Stripe_Customer_Portal_Shortcodes
+class Customer_Portal_For_Stripe_Shortcodes
 {
     public static $shortcodes = [
-        'wpscp_list_cards',
-        'wpscp_add_card',
-        'wpscp_list_subscriptions',
-        'wpscp_list_invoices',
+        'cpfs_list_cards',
+        'cpfs_add_card',
+        'cpfs_list_subscriptions',
+        'cpfs_list_invoices',
     ];
 
     /**
@@ -34,10 +34,10 @@ class Wp_Stripe_Customer_Portal_Shortcodes
      *
      * @return string
      */
-    public function wpscp_list_cards($atts, $content = "")
+    public function cpfs_list_cards($atts, $content = "")
     {
         if (!is_user_logged_in()) {
-            return __("Please sign in to view this content.", WP_STRIPE_CUSTOMER_PORTAL_PLUGIN_TEXTDOMAIN);
+            return __("Please sign in to view this content.", CUSTOMER_PORTAL_FOR_STRIPE_PLUGIN_TEXTDOMAIN);
         }
 
         global $wpscpStripe;
@@ -45,14 +45,14 @@ class Wp_Stripe_Customer_Portal_Shortcodes
         $items = $wpscpStripe->getCards($customer);
 
         ob_start();
-        require_once WP_STRIPE_CUSTOMER_PORTAL_PLUGIN_PATH . 'public/partials/wp-stripe-customer-portal-cards.php';
+        require_once CUSTOMER_PORTAL_FOR_STRIPE_PLUGIN_PATH . 'public/partials/customer-portal-for-stripe-cards.php';
         return ob_get_clean();
     }
 
-    public function wpscp_add_card($atts, $content = "")
+    public function cpfs_add_card($atts, $content = "")
     {
         if (!is_user_logged_in()) {
-            return __("Please sign in to view this content.", WP_STRIPE_CUSTOMER_PORTAL_PLUGIN_TEXTDOMAIN);
+            return __("Please sign in to view this content.", CUSTOMER_PORTAL_FOR_STRIPE_PLUGIN_TEXTDOMAIN);
         }
 
         global $wpscpStripe;
@@ -60,14 +60,14 @@ class Wp_Stripe_Customer_Portal_Shortcodes
         $setupIntent = $wpscpStripe->createSetupIntent($customer);
 
         ob_start();
-        require_once WP_STRIPE_CUSTOMER_PORTAL_PLUGIN_PATH . 'public/partials/wp-stripe-customer-portal-add-card.php';
+        require_once CUSTOMER_PORTAL_FOR_STRIPE_PLUGIN_PATH . 'public/partials/customer-portal-for-stripe-add-card.php';
         return ob_get_clean();
     }
 
-    public function wpscp_list_subscriptions($atts, $content = "")
+    public function cpfs_list_subscriptions($atts, $content = "")
     {
         if (!is_user_logged_in()) {
-            return __("Please sign in to view this content.", WP_STRIPE_CUSTOMER_PORTAL_PLUGIN_TEXTDOMAIN);
+            return __("Please sign in to view this content.", CUSTOMER_PORTAL_FOR_STRIPE_PLUGIN_TEXTDOMAIN);
         }
 
         extract(shortcode_atts(array(
@@ -80,14 +80,14 @@ class Wp_Stripe_Customer_Portal_Shortcodes
         $items = $wpscpStripe->getSubscriptions($customer);
 
         ob_start();
-        require_once WP_STRIPE_CUSTOMER_PORTAL_PLUGIN_PATH . 'public/partials/wp-stripe-customer-portal-subscriptions.php';
+        require_once CUSTOMER_PORTAL_FOR_STRIPE_PLUGIN_PATH . 'public/partials/customer-portal-for-stripe-subscriptions.php';
         return ob_get_clean();
     }
 
-    public function wpscp_list_invoices($atts, $content = "")
+    public function cpfs_list_invoices($atts, $content = "")
     {
         if (!is_user_logged_in()) {
-            return __("Please sign in to view this content.", WP_STRIPE_CUSTOMER_PORTAL_PLUGIN_TEXTDOMAIN);
+            return __("Please sign in to view this content.", CUSTOMER_PORTAL_FOR_STRIPE_PLUGIN_TEXTDOMAIN);
         }
 
         extract(shortcode_atts(array(
@@ -99,7 +99,7 @@ class Wp_Stripe_Customer_Portal_Shortcodes
         $items = $wpscpStripe->getInvoices($customer);
 
         ob_start();
-        require_once WP_STRIPE_CUSTOMER_PORTAL_PLUGIN_PATH . 'public/partials/wp-stripe-customer-portal-invoices.php';
+        require_once CUSTOMER_PORTAL_FOR_STRIPE_PLUGIN_PATH . 'public/partials/customer-portal-for-stripe-invoices.php';
         return ob_get_clean();
     }
 }

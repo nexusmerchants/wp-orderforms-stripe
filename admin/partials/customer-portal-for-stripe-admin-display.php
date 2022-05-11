@@ -7,8 +7,8 @@
  * @link       https://www.nexusmerchants.com
  * @since      1.0.0
  *
- * @package    Wp_Stripe_Customer_Portal
- * @subpackage Wp_Stripe_Customer_Portal/admin/partials
+ * @package    Customer_Portal_For_Stripe
+ * @subpackage Customer_Portal_For_Stripe/admin/partials
  */
 ?>
 
@@ -16,8 +16,8 @@
     <h1>Stripe Customer Portal Settings</h1>
     <form method="POST" action="options.php">
         <?php
-        settings_fields( 'wp_stripe_customer_portal_settings' );
-        do_settings_sections( 'wp_stripe_customer_portal_settings' );
+        settings_fields( 'customer_portal_for_stripe_settings' );
+        do_settings_sections( 'customer_portal_for_stripe_settings' );
         submit_button(); ?>
     </form>
 </div>

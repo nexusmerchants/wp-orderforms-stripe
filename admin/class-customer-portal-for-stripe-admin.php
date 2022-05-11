@@ -5,10 +5,10 @@
  * @link       https://www.nexusmerchants.com
  * @since      1.0.0
  *
- * @package    Wp_Stripe_Customer_Portal
- * @subpackage Wp_Stripe_Customer_Portal/admin
+ * @package    Customer_Portal_For_Stripe
+ * @subpackage Customer_Portal_For_Stripe/admin
  */
-class Wp_Stripe_Customer_Portal_Admin {
+class Customer_Portal_For_Stripe_Admin {
 
 	/**
 	 * The ID of this plugin.
@@ -53,15 +53,15 @@ class Wp_Stripe_Customer_Portal_Admin {
 		 * This function is provided for demonstration purposes only.
 		 *
 		 * An instance of this class should be passed to the run() function
-		 * defined in Wp_Stripe_Customer_Portal_Loader as all of the hooks are defined
+		 * defined in Customer_Portal_For_Stripe_Loader as all of the hooks are defined
 		 * in that particular class.
 		 *
-		 * The Wp_Stripe_Customer_Portal_Loader will then create the relationship
+		 * The Customer_Portal_For_Stripe_Loader will then create the relationship
 		 * between the defined hooks and the functions defined in this
 		 * class.
 		 */
 
-		wp_enqueue_style( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'css/wp-stripe-customer-portal-admin.css', array(), $this->version, 'all' );
+		wp_enqueue_style( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'css/customer-portal-for-stripe-admin.css', array(), $this->version, 'all' );
 
 	}
 
@@ -76,15 +76,15 @@ class Wp_Stripe_Customer_Portal_Admin {
 		 * This function is provided for demonstration purposes only.
 		 *
 		 * An instance of this class should be passed to the run() function
-		 * defined in Wp_Stripe_Customer_Portal_Loader as all of the hooks are defined
+		 * defined in Customer_Portal_For_Stripe_Loader as all of the hooks are defined
 		 * in that particular class.
 		 *
-		 * The Wp_Stripe_Customer_Portal_Loader will then create the relationship
+		 * The Customer_Portal_For_Stripe_Loader will then create the relationship
 		 * between the defined hooks and the functions defined in this
 		 * class.
 		 */
 
-		wp_enqueue_script( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'js/wp-stripe-customer-portal-admin.js', array( 'jquery' ), $this->version, false );
+		wp_enqueue_script( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'js/customer-portal-for-stripe-admin.js', array( 'jquery' ), $this->version, false );
 
 	}
 
@@ -99,11 +99,11 @@ class Wp_Stripe_Customer_Portal_Admin {
     {
         $url = esc_url(add_query_arg(
             'page',
-            'wp-stripe-customer-portal',
+            'customer-portal-for-stripe',
             get_admin_url() . 'admin.php'
         ));
 
-        $settings_link = '<a href="'.$url.'">' . __('Settings', WP_STRIPE_CUSTOMER_PORTAL_PLUGIN_TEXTDOMAIN) . '</a>';
+        $settings_link = '<a href="'.$url.'">' . __('Settings', CUSTOMER_PORTAL_FOR_STRIPE_PLUGIN_TEXTDOMAIN) . '</a>';
 
         array_push(
             $links,
@@ -118,10 +118,10 @@ class Wp_Stripe_Customer_Portal_Admin {
      */
     public function admin_menu() {
         add_options_page(
-            esc_attr__( 'Stripe Customer Portal', 'wp-stripe-customer-portal' ),
-            esc_attr__( 'Stripe Customer Portal', 'wp-stripe-customer-portal' ),
+            esc_attr__( 'Stripe Customer Portal', 'customer-portal-for-stripe' ),
+            esc_attr__( 'Stripe Customer Portal', 'customer-portal-for-stripe' ),
             'manage_options',
-            'wp-stripe-customer-portal',
+            'customer-portal-for-stripe',
             array( $this, 'admin_screen' ),
             25
         );
@@ -133,7 +133,7 @@ class Wp_Stripe_Customer_Portal_Admin {
     public function admin_screen() {
         $this->enqueue_styles();
         $this->enqueue_scripts();
-        require_once plugin_dir_path( dirname( __FILE__ ) ) . 'admin/partials/wp-stripe-customer-portal-admin-display.php';
+        require_once plugin_dir_path( dirname( __FILE__ ) ) . 'admin/partials/customer-portal-for-stripe-admin-display.php';
     }
 
     public function admin_notice() { ?>
@@ -146,8 +146,8 @@ class Wp_Stripe_Customer_Portal_Admin {
      *
      */
     public function admin_settings_sections() {
-        add_settings_section( 'stripe_keys_section', 'Stripe Keys', false, 'wp_stripe_customer_portal_settings' );
-        add_settings_section( 'customization_section', 'Customizations', false, 'wp_stripe_customer_portal_settings' );
+        add_settings_section( 'stripe_keys_section', 'Stripe Keys', false, 'customer_portal_for_stripe_settings' );
+        add_settings_section( 'customization_section', 'Customizations', false, 'customer_portal_for_stripe_settings' );
     }
 
     /**
@@ -156,7 +156,7 @@ class Wp_Stripe_Customer_Portal_Admin {
     public function admin_settings_fields() {
         $fields = [
             [
-                'uid' => 'wpscp_stripe_secret_key',
+                'uid' => 'cpfs_stripe_secret_key',
                 'label' => 'Stripe Secret Key',
                 'section' => 'stripe_keys_section',
                 'type' => 'password',
@@ -164,7 +164,7 @@ class Wp_Stripe_Customer_Portal_Admin {
                 'placeholder' => 'sk_...',
             ],
             [
-                'uid' => 'wpscp_stripe_publishable_key',
+                'uid' => 'cpfs_stripe_publishable_key',
                 'label' => 'Stripe Publishable Key',
                 'section' => 'stripe_keys_section',
                 'type' => 'password',
@@ -172,7 +172,7 @@ class Wp_Stripe_Customer_Portal_Admin {
                 'placeholder' => 'pk_...',
             ],
             [
-                'uid' => 'wpscp_custom_css',
+                'uid' => 'cpfs_custom_css',
                 'label' => 'Custom CSS',
                 'section' => 'customization_section',
                 'type' => 'code',
@@ -181,8 +181,8 @@ class Wp_Stripe_Customer_Portal_Admin {
             ]
         ];
         foreach( $fields as $field ){
-            add_settings_field( $field['uid'], $field['label'], array( $this, 'admin_settings_fields_callback' ), 'wp_stripe_customer_portal_settings', $field['section'], $field );
-            register_setting( 'wp_stripe_customer_portal_settings', $field['uid'] );
+            add_settings_field( $field['uid'], $field['label'], array( $this, 'admin_settings_fields_callback' ), 'customer_portal_for_stripe_settings', $field['section'], $field );
+            register_setting( 'customer_portal_for_stripe_settings', $field['uid'] );
         }
     }
 
@@ -215,7 +215,7 @@ class Wp_Stripe_Customer_Portal_Admin {
      */
     function stripe_customer_id_user_profile_field( $user ) {
         if ( current_user_can( 'manage_options', $user->ID ) ) {
-            require_once WP_STRIPE_CUSTOMER_PORTAL_PLUGIN_PATH . 'admin/partials/wp-stripe-customer-portal-customer-id-user-profile-field.php';
+            require_once CUSTOMER_PORTAL_FOR_STRIPE_PLUGIN_PATH . 'admin/partials/customer-portal-for-stripe-customer-id-user-profile-field.php';
         }
     }
 
@@ -233,6 +233,6 @@ class Wp_Stripe_Customer_Portal_Admin {
             return false;
         }
 
-        update_user_meta( $user_id, 'wpscp_stripe_customer_id', $_POST['stripeCustomerId'] );
+        update_user_meta( $user_id, 'cpfs_stripe_customer_id', $_POST['stripeCustomerId'] );
     }
 }
