@@ -123,6 +123,6 @@ class Customer_Portal_For_Stripe_Public {
 		$cpfsCustomCSS = preg_replace( '!/\*[^*]*\*+([^/][^*]*\*+)*/!', '', $cpfsCustomCSS );
 		$cpfsCustomCSS = str_replace( ': ', ':', $cpfsCustomCSS );
 		$cpfsCustomCSS = str_replace( array( "\r\n", "\r", "\n", "\t", '  ', '    ', '    ' ), '', $cpfsCustomCSS );
-		echo "<style>{esc_textarea($cpfsCustomCSS)}</style>";
+		echo '<style id="cpfs_custom_css">' . esc_textarea($cpfsCustomCSS) . '</style>';
 	}
 }
