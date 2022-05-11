@@ -1,12 +1,13 @@
 /* Wrapper */
-.wpscp {}
+.cpfs {
+}
 
 /* Add Card */
-.wpscp.add-card .field-group {
+.cpfs.add-card .field-group {
     margin: 2rem 0;
 }
 
-.wpscp.add-card input {
+.cpfs.add-card input {
     font-size: 1em;
     line-height: 1.2em;
     padding: 1rem 2rem;
@@ -16,7 +17,7 @@
     border-radius: .5rem;
 }
 
-.wpscp.add-card button[type="submit"] {
+.cpfs.add-card button[type="submit"] {
     padding: 1rem 2rem;
     background-color: white;
     color: #444;
@@ -24,7 +25,7 @@
     border-radius: .5rem;
 }
 
-.wpscp.add-card #card-element {
+.cpfs.add-card #card-element {
     padding: 1rem 2rem;
     background-color: white;
     color: #444;
@@ -32,14 +33,14 @@
     border-radius: .5rem;
 }
 
-.wpscp.add-card #card-error {
+.cpfs.add-card #card-error {
     font-size: 1em;
     line-height: 1.2em;
     color: #ff0000;
     margin: 2rem 0;
 }
 
-.wpscp.add-card #card-success {
+.cpfs.add-card #card-success {
     font-size: 1em;
     line-height: 1.2em;
     color: #00b300;
@@ -47,34 +48,34 @@
 }
 
 /* List Cards */
-.wpscp.wpscp-cards table {
+.cpfs.cpfs-cards table {
     table-layout: auto;
 }
 
-.wpscp.wpscp-cards thead th {
+.cpfs.cpfs-cards thead th {
     white-space: nowrap;
 }
 
-.wpscp.wpscp-cards tbody td {
+.cpfs.cpfs-cards tbody td {
     font-size: 0.8em;
     white-space: nowrap;
 }
 
 /* List Subscriptions */
-.wpscp.wpscp-subscriptions table {
+.cpfs.cpfs-subscriptions table {
     table-layout: auto;
 }
 
-.wpscp.wpscp-subscriptions tbody td {
+.cpfs.cpfs-subscriptions tbody td {
     font-size: 0.8em;
     white-space: nowrap;
 }
 
-.wpscp.wpscp-subscriptions .action-column {
+.cpfs.cpfs-subscriptions .action-column {
     text-align: center;
 }
 
-.wpscp.wpscp-subscriptions .btn-cancel-subscription {
+.cpfs.cpfs-subscriptions .btn-cancel-subscription {
     padding: 0.6rem 1rem;
     background-color: white;
     color: #444;
@@ -84,15 +85,15 @@
 }
 
 /* List Invoices */
-.wpscp.wpscp-invoices table {
+.cpfs.cpfs-invoices table {
     table-layout: auto;
 }
 
-.wpscp.wpscp-invoices thead th {
+.cpfs.cpfs-invoices thead th {
     white-space: nowrap;
 }
 
-.wpscp.wpscp-invoices tbody td {
+.cpfs.cpfs-invoices tbody td {
     font-size: 0.8em;
     white-space: nowrap;
 }

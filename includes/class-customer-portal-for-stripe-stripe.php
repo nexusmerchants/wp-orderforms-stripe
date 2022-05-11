@@ -1,10 +1,4 @@
 <?php
-/**
- * @author Peter Harlacher
- * @license GPL-2.0+
- * @copyright 2021 Peter Harlacher
- * @since 24/5/21 09:41
- */
 
 use Stripe\Customer;
 
@@ -23,7 +17,9 @@ class Customer_Portal_For_Stripe_Stripe
      */
     public function __construct()
     {
-        $this->stripeClient = new \Stripe\StripeClient(get_option('cpfs_stripe_secret_key', 'invalid_key'));
+        $apiKey             = get_option('cpfs_stripe_secret_key');
+        $apiKey             = empty($apiKey) ? 'invalid_key' : $apiKey;
+        $this->stripeClient = new \Stripe\StripeClient($apiKey);
     }
 
     /**
@@ -35,17 +31,17 @@ class Customer_Portal_For_Stripe_Stripe
      */
     public function getOrCreateCustomer(int $userId = null, $expand = null)
     {
-        $stripeOptions = empty($expand) ? null : ['expand' => array_values($expand)];
-        $user = empty($userId) ? wp_get_current_user() : get_user_by('id', $userId);
+        $stripeOptions = empty($expand) ? null : [ 'expand' => array_values($expand) ];
+        $user          = empty($userId) ? wp_get_current_user() : get_user_by('id', $userId);
 
         $transientKey = 'wpscpStripeCustomer_' . $user->ID;
-        $customer = get_transient($transientKey);
+        $customer     = get_transient($transientKey);
 
         if ($customer === false) {
-            $wpscpStripeCustomerId = get_user_meta($user->ID, 'cpfs_stripe_customer_id', true);
+            $cpfsStripeCustomerId = get_user_meta($user->ID, 'cpfs_stripe_customer_id', true);
 
-            if (!empty($wpscpStripeCustomerId)) {
-                $customer = $this->getCustomer($wpscpStripeCustomerId, $stripeOptions);
+            if (! empty($cpfsStripeCustomerId)) {
+                $customer = $this->getCustomer($cpfsStripeCustomerId, $stripeOptions);
             }
 
             if (empty($customer)) {
@@ -83,7 +79,7 @@ class Customer_Portal_For_Stripe_Stripe
      */
     public function findCustomer(WP_User $user, $stripeOptions = null)
     {
-        $email = strtolower(trim($user->user_email));
+        $email     = strtolower(trim($user->user_email));
         $customers = $this->stripeClient->customers->all([
             'email' => $email,
             'limit' => 1,
@@ -139,13 +135,13 @@ class Customer_Portal_For_Stripe_Stripe
     public function getCards(Customer $customer)
     {
         $transientKey = 'wpscpStripeCards_' . $customer->id;
-        $data = get_transient($transientKey);
+        $data         = get_transient($transientKey);
 
         if ($data === false) {
             $data = $this->stripeClient->paymentMethods->all(
                 [
                     'customer' => $customer->id,
-                    'type' => 'card',
+                    'type'     => 'card',
                     // 'limit' => 10,
                 ]
             );
@@ -166,14 +162,15 @@ class Customer_Portal_For_Stripe_Stripe
     public function getInvoices(Customer $customer, $stripeOptions = null)
     {
         $transientKey = 'wpscpStripeInvoices_' . $customer->id;
-        $data = get_transient($transientKey);
+        $data         = get_transient($transientKey);
 
         if ($data === false) {
             $data = $this->stripeClient->invoices->all(
                 [
                     'customer' => $customer->id,
                     // 'limit' => 10,
-                ], $stripeOptions
+                ],
+                $stripeOptions
             );
 
             set_transient($transientKey, $data, 900);
@@ -191,7 +188,7 @@ class Customer_Portal_For_Stripe_Stripe
     public function getSubscriptions(Customer $customer)
     {
         $transientKey = 'wpscpStripeSubscriptions_' . $customer->id;
-        $data = get_transient($transientKey);
+        $data         = get_transient($transientKey);
 
         if ($data === false) {
             $subscriptions = $this->stripeClient->subscriptions->all(
@@ -257,7 +254,7 @@ class Customer_Portal_For_Stripe_Stripe
     }
 
     /**
-     * Cancel a Stripe subscription
+     * Set the default payment method
      */
     public function setDefaultPaymentMethod()
     {
@@ -269,8 +266,8 @@ class Customer_Portal_For_Stripe_Stripe
             ], 422);
         }
 
-        global $wpscpStripe;
-        $customer = $wpscpStripe->getOrCreateCustomer();
+        global $cpfsStripe;
+        $customer = $cpfsStripe->getOrCreateCustomer();
 
         try {
             $response = $this->stripeClient->customers->update(
@@ -298,16 +295,18 @@ class Customer_Portal_For_Stripe_Stripe
     /**
      * @param int $user_id
      * @param \WP_User $oldUserData
+     *
+     * @throws \Stripe\Exception\ApiErrorException
      */
     public function updateCustomerEmailAddress(int $user_id, WP_User $oldUserData)
     {
-        global $wpscpStripe;
-        $user = get_userdata($user_id);
+        global $cpfsStripe;
+        $user     = get_userdata($user_id);
         $oldEmail = strtolower(trim($oldUserData->data->user_email));
         $newEmail = strtolower(trim($user->user_email));
 
         if ($newEmail !== $oldEmail) {
-            $customer = $wpscpStripe->getOrCreateCustomer($user_id);
+            $customer = $cpfsStripe->getOrCreateCustomer($user_id);
 
             try {
                 $this->stripeClient->customers->update(

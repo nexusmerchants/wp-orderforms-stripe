@@ -20,7 +20,11 @@ class Customer_Portal_For_Stripe_Activator
     public static function activate()
     {
         if (version_compare(phpversion(), CUSTOMER_PORTAL_FOR_STRIPE_REQUIRED_PHP_VERSION, '<')) {
-            exit( sprintf( "<p>Customer Portal for Stripe requires PHP %s or higher. You're on %s.</p>", CUSTOMER_PORTAL_FOR_STRIPE_REQUIRED_PHP_VERSION, PHP_VERSION ) );
+            exit(sprintf(
+                "<p>Customer Portal for Stripe requires PHP %s or higher. You're on %s.</p>",
+                CUSTOMER_PORTAL_FOR_STRIPE_REQUIRED_PHP_VERSION,
+                PHP_VERSION
+            ));
         }
 
         if (false === get_option('cpfs_custom_css')) {
@@ -33,7 +37,9 @@ class Customer_Portal_For_Stripe_Activator
      */
     private static function populate_default_custom_css()
     {
-        $defaultCss = file_get_contents(CUSTOMER_PORTAL_FOR_STRIPE_PLUGIN_PATH . 'public/css/customer-portal-for-stripe-shortcodes.css');
+        $defaultCss = file_get_contents(
+            CUSTOMER_PORTAL_FOR_STRIPE_PLUGIN_PATH . 'public/css/customer-portal-for-stripe-shortcodes.css'
+        );
         update_option('cpfs_custom_css', $defaultCss);
     }
 }

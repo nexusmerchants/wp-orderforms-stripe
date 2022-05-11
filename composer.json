@@ -12,5 +12,8 @@
     "require": {
         "php": "^7.4|^8.0",
         "stripe/stripe-php": "^7.79"
+    },
+    "scripts": {
+        "phpcs": "phpcs --standard=WordPress"
     }
 }

@@ -9,9 +9,9 @@
  * @subpackage Customer_Portal_For_Stripe/public/partials
  */
 ?>
-<div class="wpscp add-card">
+<div class="cpfs add-card">
     <h3>Add New Card</h3>
-    <form id="setup-form" data-secret="<?= $setupIntent->client_secret ?>">
+    <form id="setup-form" data-secret="<?php echo $setupIntent->client_secret ?>">
         <fieldset>
             <div class="field-group">
                 <label for="cardholder-name">Cardholder Name</label>
@@ -21,9 +21,9 @@
                 <div id="card-element"></div>
             </div>
             <button type="submit" id="card-button">Save Card</button>
-        </form>
-        <div id="card-error"></div>
-        <div id="card-success"></div>
+    </form>
+    <div id="card-error"></div>
+    <div id="card-success"></div>
     </fieldset>
 </div>
 
@@ -52,7 +52,7 @@
     });
     cardElement.mount('#card-element');
 
-    setupForm.addEventListener('submit', function(ev) {
+    setupForm.addEventListener('submit', function (ev) {
         ev.preventDefault()
 
         cpfs_clearError()
@@ -69,7 +69,7 @@
                     },
                 },
             }
-        ).then(function(result) {
+        ).then(function (result) {
             cpfs_enableForm()
             if (result.error) {
                 // console.error(result.error)
@@ -114,7 +114,7 @@
     cpfs_setDefaultPaymentMethod = (result) => {
         const paymentMethod = result.setupIntent?.payment_method || null
         if (paymentMethod) {
-            var ajaxurl = "<?= admin_url('admin-ajax.php'); ?>";
+            var ajaxurl = "<?php echo admin_url('admin-ajax.php'); ?>";
             jQuery.ajax({
                 method: "POST",
                 url: ajaxurl,

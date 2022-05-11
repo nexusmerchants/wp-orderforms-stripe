@@ -8,17 +8,16 @@
  * @package    Customer_Portal_For_Stripe
  * @subpackage Customer_Portal_For_Stripe/includes
  */
-class Customer_Portal_For_Stripe_Deactivator {
-
-	/**
-	 * Short Description. (use period)
-	 *
-	 * Long Description.
-	 *
-	 * @since    1.0.0
-	 */
-	public static function deactivate() {
-
-	}
-
+class Customer_Portal_For_Stripe_Deactivator
+{
+    /**
+     * Short Description. (use period)
+     *
+     * Long Description.
+     *
+     * @since    1.0.0
+     */
+    public static function deactivate()
+    {
+    }
 }

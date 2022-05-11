@@ -9,11 +9,11 @@
  * @subpackage Customer_Portal_For_Stripe/public/partials
  */
 ?>
-<div class="wpscp wpscp-invoices">
+<div class="cpfs cpfs-invoices">
     <h3>Your Invoices</h3>
     <?php if (empty($items->data)) : ?>
         <p>You don't have any invoices</p>
-    <?php else: ?>
+    <?php else : ?>
         <table>
             <thead>
             <tr>
@@ -23,17 +23,19 @@
             </tr>
             </thead>
             <tbody>
-            <?php foreach($items->data as $invoice) : ?>
+            <?php foreach ($items->data as $invoice) : ?>
                 <tr>
                     <td>
                         <?php
-                        $lineItem = $invoice->lines->first();
+                        $lineItem    = $invoice->lines->first();
                         $description = $lineItem->description ?? 'Unknown';
                         ?>
-                        <a href="<?= $invoice->hosted_invoice_url ?? ''; ?>" target="_blank" rel="noopener"><?= $description; ?></a>
+                        <a href="<?php echo $invoice->hosted_invoice_url ?? ''; ?>" target="_blank" rel="noopener">
+                            <?php echo $description; ?>
+                        </a>
                     </td>
-                    <td><?= ucfirst($invoice->status); ?></td>
-                    <td><?= (new DateTime('@' . $invoice->created))->format('Y-m-d H:i:s'); ?> UTC</td>
+                    <td><?php echo ucfirst($invoice->status); ?></td>
+                    <td><?php echo ( new DateTime('@' . $invoice->created) )->format('Y-m-d H:i:s'); ?> UTC</td>
                 </tr>
             <?php endforeach; ?>
             </tbody>

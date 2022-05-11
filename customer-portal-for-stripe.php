@@ -25,65 +25,67 @@
  */
 
 // If this file is called directly, abort.
-if ( ! defined( 'WPINC' ) ) {
-	die;
+if (! defined('WPINC')) {
+    die;
 }
 
 /**
  * Path to plugin
  */
-define( 'CUSTOMER_PORTAL_FOR_STRIPE_PLUGIN_PATH', plugin_dir_path( __FILE__ ) );
+define('CUSTOMER_PORTAL_FOR_STRIPE_PLUGIN_PATH', plugin_dir_path(__FILE__));
 
 /**
  * Textdomain
  */
-define( 'CUSTOMER_PORTAL_FOR_STRIPE_PLUGIN_TEXTDOMAIN', 'customer-portal-for-stripe' );
+define('CUSTOMER_PORTAL_FOR_STRIPE_PLUGIN_TEXTDOMAIN', 'customer-portal-for-stripe');
 
 /**
  * Currently plugin version.
  * Start at version 1.0.0 and use SemVer - https://semver.org
  * Rename this for your plugin and update it as you release new versions.
  */
-define( 'CUSTOMER_PORTAL_FOR_STRIPE_VERSION', '1.2.0' );
+define('CUSTOMER_PORTAL_FOR_STRIPE_VERSION', '1.2.0');
 
 /**
  * Currently plugin version.
  * Start at version 1.0.0 and use SemVer - https://semver.org
  * Rename this for your plugin and update it as you release new versions.
  */
-define( 'CUSTOMER_PORTAL_FOR_STRIPE_REQUIRED_PHP_VERSION', '7.4' );
+define('CUSTOMER_PORTAL_FOR_STRIPE_REQUIRED_PHP_VERSION', '7.4');
 
 /**
  * The code that runs during plugin activation.
  * This action is documented in includes/class-customer-portal-for-stripe-activator.php
  */
-function activate_customer_portal_for_stripe() {
-	require_once plugin_dir_path( __FILE__ ) . 'includes/class-customer-portal-for-stripe-activator.php';
-	Customer_Portal_For_Stripe_Activator::activate();
+function activate_customer_portal_for_stripe()
+{
+    require_once plugin_dir_path(__FILE__) . 'includes/class-customer-portal-for-stripe-activator.php';
+    Customer_Portal_For_Stripe_Activator::activate();
 }
 
 /**
  * The code that runs during plugin deactivation.
  * This action is documented in includes/class-customer-portal-for-stripe-deactivator.php
  */
-function deactivate_customer_portal_for_stripe() {
-	require_once plugin_dir_path( __FILE__ ) . 'includes/class-customer-portal-for-stripe-deactivator.php';
-	Customer_Portal_For_Stripe_Deactivator::deactivate();
+function deactivate_customer_portal_for_stripe()
+{
+    require_once plugin_dir_path(__FILE__) . 'includes/class-customer-portal-for-stripe-deactivator.php';
+    Customer_Portal_For_Stripe_Deactivator::deactivate();
 }
 
-register_activation_hook( __FILE__, 'activate_customer_portal_for_stripe' );
-register_deactivation_hook( __FILE__, 'deactivate_customer_portal_for_stripe' );
+register_activation_hook(__FILE__, 'activate_customer_portal_for_stripe');
+register_deactivation_hook(__FILE__, 'deactivate_customer_portal_for_stripe');
 
 /**
  * Load vendor specific classes
  */
-require plugin_dir_path( __FILE__ ) . 'vendor/autoload.php';
+require plugin_dir_path(__FILE__) . 'vendor/autoload.php';
 
 /**
  * The core plugin class that is used to define internationalization,
  * admin-specific hooks, and public-facing site hooks.
  */
-require plugin_dir_path( __FILE__ ) . 'includes/class-customer-portal-for-stripe.php';
+require plugin_dir_path(__FILE__) . 'includes/class-customer-portal-for-stripe.php';
 
 /**
  * Begins execution of the plugin.
@@ -94,9 +96,10 @@ require plugin_dir_path( __FILE__ ) . 'includes/class-customer-portal-for-stripe
  *
  * @since    1.0.0
  */
-function run_customer_portal_for_stripe() {
-	$plugin = new Customer_Portal_For_Stripe();
-	$plugin->run();
+function run_customer_portal_for_stripe()
+{
+    $plugin = new Customer_Portal_For_Stripe();
+    $plugin->run();
 }
 
 run_customer_portal_for_stripe();
