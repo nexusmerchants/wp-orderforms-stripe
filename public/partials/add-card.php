@@ -40,6 +40,7 @@
 	const stripe = Stripe('<?php esc_html_e(get_option( 'cpfs_stripe_publishable_key', '' )); ?>');
 	const elements = stripe.elements();
 	const cardElement = elements.create('card', {
+        hidePostalCode: true,
 		style: {
 			base: {
 				lineHeight: '1.6',
