@@ -2,6 +2,7 @@
 
 namespace WPCustomerPortalForStripe;
 
+use Stripe\Stripe;
 use Stripe\Customer;
 
 /**
@@ -17,6 +18,12 @@ class Customer_Portal_For_Stripe_Stripe {
 	 * Customer_Portal_For_Stripe_Stripe constructor.
 	 */
 	public function __construct() {
+		Stripe::setAppInfo(
+			"Customer Portal for Stripe WordPress Plugin",
+			CUSTOMER_PORTAL_FOR_STRIPE_VERSION,
+			"https://www.orderforms.com"
+		);
+
 		try {
 			$this->stripeClient = new \Stripe\StripeClient( get_option( 'cpfs_stripe_secret_key', '' ) );
 		} catch ( \Exception $e ) {
@@ -260,6 +267,7 @@ class Customer_Portal_For_Stripe_Stripe {
 
 		global $cpfsStripe;
 		$customer = $cpfsStripe->getOrCreateCustomer();
+		$user = wp_get_current_user();
 
 		try {
 			$response = $this->stripeClient->customers->update(
@@ -276,8 +284,8 @@ class Customer_Portal_For_Stripe_Stripe {
 			], 422 );
 		}
 
-		$transientKey = 'cpfsStripeCards_' . $customer->id;
-		delete_transient( $transientKey );
+		delete_transient( 'cpfsStripeCards_' . $customer->id );
+		delete_transient( 'cpfsStripeCustomer_' . $user->ID );
 
 		return wp_send_json_success( [
 			'status' => 'success',
