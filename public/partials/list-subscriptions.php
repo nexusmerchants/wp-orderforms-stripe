@@ -33,10 +33,10 @@
 						$product = $item['price']->product->name ?? 'Unknown';
 						$plan    = $item['plan']->nickname ?? 'Unknown';
 						?>
-						<?php echo "{$product}: {$plan}"; ?>
+						<?php esc_html_e( "{$product}: {$plan}" ); ?>
 					</td>
-					<td><?php echo ucfirst( $subscription->status ); ?></td>
-					<td><?php echo ( new DateTime( '@' . $subscription->current_period_end ) )->format( 'Y-m-d H:i:s' ); ?>
+					<td><?php esc_html_e( ucfirst( $subscription->status ) ); ?></td>
+					<td><?php echo ( new DateTime( '@' . esc_html( $subscription->current_period_end ) ) )->format( 'Y-m-d H:i:s' ); ?>
 						UTC
 					</td>
 					<?php if ( $atts['allow-cancel'] === 'true' ) : ?>

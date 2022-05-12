@@ -27,12 +27,18 @@
 			</thead>
 			<tbody>
 			<?php foreach ( $items->data as $card ) : ?>
+				<?php
+				$is_default_card = in_array( $card->id, [
+					$customer->invoice_settings->default_payment_method,
+					// $customer->default_source
+				] )
+				?>
 				<tr>
-					<td><?php echo $card->billing_details->name; ?></td>
-					<td><?php echo $card->card->last4; ?></td>
-					<td><?php echo $card->card->brand; ?></td>
-					<td><?php echo $card->card->exp_month; ?>/<?php echo $card->card->exp_year; ?></td>
-					<td><?php if ( $card->id === $customer->invoice_settings->default_payment_method ) : ?>Yes<?php endif; ?></td>
+					<td><?php esc_html_e( $card->billing_details->name ); ?></td>
+					<td><?php esc_html_e( $card->card->last4 ); ?></td>
+					<td><?php esc_html_e( $card->card->brand ); ?></td>
+					<td><?php esc_html_e( "{$card->card->exp_month}/{$card->card->exp_year}" ); ?></td>
+					<td><?php if ( $is_default_card ) : ?>Yes<?php endif; ?></td>
 				</tr>
 			<?php endforeach; ?>
 			</tbody>

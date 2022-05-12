@@ -11,35 +11,37 @@
 
 ?>
 <div class="cpfs cpfs-invoices">
-    <h3>Your Invoices</h3>
+	<h3>Your Invoices</h3>
 	<?php if ( empty( $items->data ) ) : ?>
-        <p>You don't have any invoices</p>
+		<p>You don't have any invoices</p>
 	<?php else : ?>
-        <table>
-            <thead>
-            <tr>
-                <th>Description</th>
-                <th>Status</th>
-                <th>Date</th>
-            </tr>
-            </thead>
-            <tbody>
+		<table>
+			<thead>
+			<tr>
+				<th>Description</th>
+				<th>Status</th>
+				<th>Date</th>
+			</tr>
+			</thead>
+			<tbody>
 			<?php foreach ( $items->data as $invoice ) : ?>
-                <tr>
-                    <td>
+				<tr>
+					<td>
 						<?php
 						$lineItem    = $invoice->lines->first();
 						$description = $lineItem->description ?? 'Unknown';
 						?>
-                        <a href="<?php echo $invoice->hosted_invoice_url ?? ''; ?>" target="_blank" rel="noopener">
-							<?php echo $description; ?>
-                        </a>
-                    </td>
-                    <td><?php echo ucfirst( $invoice->status ); ?></td>
-                    <td><?php echo ( new DateTime( '@' . $invoice->created ) )->format( 'Y-m-d H:i:s' ); ?> UTC</td>
-                </tr>
+						<a href="<?php echo esc_url( $invoice->hosted_invoice_url ?? '' ); ?>" target="_blank" rel="noopener">
+							<?php esc_html_e( $description ); ?>
+						</a>
+					</td>
+					<td><?php esc_html_e( ucfirst( $invoice->status ) ); ?></td>
+					<td><?php echo ( new DateTime( '@' . esc_html( $invoice->created ) ) )->format( 'Y-m-d H:i:s' ); ?>
+						UTC
+					</td>
+				</tr>
 			<?php endforeach; ?>
-            </tbody>
-        </table>
+			</tbody>
+		</table>
 	<?php endif; ?>
 </div>

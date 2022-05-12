@@ -4,7 +4,7 @@ Donate link: https://www.orderforms.com
 Tags: stripe, billing, customer, subscription, invoice, checkout, credit-card
 Requires at least: 5.7.2
 Tested up to: 5.9.3
-Stable tag: 4.1.0
+Stable tag: 4.1.4
 Requires PHP: 7.4
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
@@ -51,6 +51,18 @@ manage their Stripe subscriptions, see their invoices & manage their cards:
 3. Place any of the `[cpfs_*]` shortcodes into your pages
 
 == Changelog ==
+
+= 4.1.4 =
+* [SECURITY] Escape all Stripe API output
+
+= 4.1.3 =
+* [CHANGED] Remove ZIP input/requirement when adding a new card
+
+= 4.1.2 =
+* [FIXED] Properly handle `[cpfs_list_subscriptions]` shortcode attribute(s)
+
+= 4.1.1 =
+* [IMPROVED] Remove both card & customer transient upon card update to immediately reflect 'default card' attribute
 
 = 4.1.0 =
 * Complete plugin rewrite
