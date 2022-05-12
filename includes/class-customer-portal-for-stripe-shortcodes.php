@@ -75,10 +75,10 @@ class Customer_Portal_For_Stripe_Shortcodes {
 			return __( "Please sign in to view this content.", CUSTOMER_PORTAL_FOR_STRIPE_PLUGIN_TEXTDOMAIN );
 		}
 
-		extract( shortcode_atts( array(
+		$atts = shortcode_atts( array(
 			'include-cancelled' => false,
 			'allow-cancel'      => false,
-		), $atts ) );
+		), $atts );
 
 		global $cpfsStripe;
 

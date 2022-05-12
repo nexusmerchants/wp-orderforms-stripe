@@ -21,7 +21,7 @@
 				<th>Plan</th>
 				<th>Status</th>
 				<th>Expires</th>
-				<th></th>
+				<?php if ( $atts['allow-cancel'] ) : ?><th></th><?php endif; ?>
 			</tr>
 			</thead>
 			<tbody>
@@ -39,13 +39,15 @@
 					<td><?php echo ( new DateTime( '@' . $subscription->current_period_end ) )->format( 'Y-m-d H:i:s' ); ?>
 						UTC
 					</td>
+					<?php if ( $atts['allow-cancel'] === 'true' ) : ?>
 					<td class="action-column">
-						<?php if ( $atts['allow-cancel'] === 'true' && $subscription->status === 'active' ) : ?>
-							<button type="button" class="btn-cancel-subscription" data-subscription-name="<?php esc_attr_e("{$product}: {$plan}"); ?>" data-subscription-id="<?php esc_attr_e($subscription->id); ?>">
+						<?php if ( in_array( $subscription->status, array( 'active', 'trialing' ) ) ) : ?>
+							<button type="button" class="btn-cancel-subscription" data-subscription-name="<?php esc_attr_e( "{$product}: {$plan}" ); ?>" data-subscription-id="<?php esc_attr_e( $subscription->id ); ?>">
 								Cancel
 							</button>
 						<?php endif; ?>
 					</td>
+					<?php endif; ?>
 				</tr>
 			<?php endforeach; ?>
 			</tbody>
