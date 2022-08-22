@@ -1,11 +1,10 @@
 # Customer Portal for Stripe
 
 Contributors: nexusmerchants, tacocode  
-Donate link: https://www.orderforms.com  
 Tags: stripe, billing, customer, subscription, invoice, checkout, credit-card  
 Requires at least: 5.7.2  
 Tested up to: 5.9.3  
-Stable tag: 4.1.4   
+Stable tag: 4.1.5   
 Requires PHP: 7.4   
 License: GPLv2 or later 
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
@@ -54,6 +53,9 @@ manage their Stripe subscriptions, see their invoices & manage their cards:
 ---
 
 ## Changelog
+
+**4.1.5**
+- [FIXED] Fix regex to allow saving of live keys. (Cr. [Cameron Gilroy](https://github.com/nexusmerchants/wp-orderforms-stripe/pull/3))
 
 **4.1.4**
 - [SECURITY] Escape all Stripe API output
