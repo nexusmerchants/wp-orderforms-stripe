@@ -247,7 +247,7 @@ class Customer_Portal_For_Stripe_Admin {
 
 		switch ( $uid ) {
 			case 'cpfs_stripe_secret_key':
-				if ( ! preg_match( '/^sk_(test_|live_)?[A-Za-z0-9]{8,}/', $value ) ) {
+				if ( ! preg_match( '/^(s|r)k_(test_|live_)?[A-Za-z0-9]{8,}/', $value ) ) {
 					$valid = false;
 					add_settings_error( 'cpfs_stripe_secret_key', esc_attr( 'cpfs_stripe_secret_key' ), 'Please enter a valid Secret Key.' );
 				}
