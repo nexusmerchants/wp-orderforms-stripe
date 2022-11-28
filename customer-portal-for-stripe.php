@@ -15,7 +15,7 @@
  * Plugin Name:       Customer Portal for Stripe
  * Plugin URI:        https://www.orderforms.com
  * Description:       Provides shortcodes for Stripe Invoices, Subscriptions & Cards.
- * Version:           4.1.5
+ * Version:           4.1.6
  * Author:            Nexus Merchants
  * Author URI:        https://www.nexusmerchants.com
  * License:           GPL-2.0+
@@ -44,7 +44,7 @@ define( 'CUSTOMER_PORTAL_FOR_STRIPE_PLUGIN_TEXTDOMAIN', 'customer-portal-for-str
  * Start at version 1.0.0 and use SemVer - https://semver.org
  * Rename this for your plugin and update it as you release new versions.
  */
-define( 'CUSTOMER_PORTAL_FOR_STRIPE_VERSION', '4.1.5' );
+define( 'CUSTOMER_PORTAL_FOR_STRIPE_VERSION', '4.1.6' );
 
 /**
  * Currently plugin version.

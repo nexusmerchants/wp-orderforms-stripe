@@ -1,12 +1,21 @@
 {
-    "name": "nexusmerchants/customer-portal-for-stripe",
+    "name": "nexusmerchants/wp-orderforms-stripe",
     "description": "Customer Portal For Stripe WordPress Plugin",
+    "homepage": "https://github.com/nexusmerchants/wp-orderforms-stripe",
     "type": "wordpress-plugin",
     "license": "GPL-2.0-or-later",
     "authors": [
         {
+            "name": "Nexus Merchants",
+            "email": "support@nexusmerchants.com",
+            "homepage": "https://www.nexusmerchants.com",
+            "role": "Developer"
+        },
+        {
             "name": "Peter Harlacher",
-            "email": "harlacher@protonmail.com"
+            "email": "peter@tacocode.com",
+            "homepage": "https://www.tacocode.com",
+            "role": "Developer"
         }
     ],
     "require": {

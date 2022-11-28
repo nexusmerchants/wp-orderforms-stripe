@@ -2,17 +2,24 @@
 
 namespace WPCustomerPortalForStripe;
 
+use Exception;
+use Stripe\Collection;
+use Stripe\Exception\ApiErrorException;
+use Stripe\SetupIntent;
 use Stripe\Stripe;
 use Stripe\Customer;
+use Stripe\StripeClient;
+use Stripe\StripeObject;
+use WP_User;
 
 /**
  * Class Customer_Portal_For_Stripe_Shortcodes
  */
 class Customer_Portal_For_Stripe_Stripe {
 	/**
-	 * @var \Stripe\StripeClient
+	 * @var StripeClient
 	 */
-	public \Stripe\StripeClient $stripeClient;
+	public StripeClient $stripeClient;
 
 	/**
 	 * Customer_Portal_For_Stripe_Stripe constructor.
@@ -25,8 +32,8 @@ class Customer_Portal_For_Stripe_Stripe {
 		);
 
 		try {
-			$this->stripeClient = new \Stripe\StripeClient( get_option( 'cpfs_stripe_secret_key', '' ) );
-		} catch ( \Exception $e ) {
+			$this->stripeClient = new StripeClient( get_option( 'cpfs_stripe_secret_key', '' ) );
+		} catch ( Exception $e ) {
 			unset($this->stripeClient);
 		}
 	}
@@ -35,10 +42,14 @@ class Customer_Portal_For_Stripe_Stripe {
 	 * @param  int|null  $userId
 	 * @param  array|null  $expand
 	 *
-	 * @return \Stripe\Customer|\Stripe\StripeObject
-	 * @throws \Stripe\Exception\ApiErrorException
+	 * @return Customer|StripeObject
+	 * @throws ApiErrorException
 	 */
 	public function getOrCreateCustomer( int $userId = null, $expand = null ) {
+        if (empty($this->stripeClient)) {
+            wp_die(__("Could not create Stripe client. Did you set up your Stripe API keys in 'Settings > Stripe Customer Portal'?", CUSTOMER_PORTAL_FOR_STRIPE_PLUGIN_TEXTDOMAIN));
+        }
+
 		$stripeOptions = empty( $expand ) ? null : [ 'expand' => array_values( $expand ) ];
 		$user          = empty( $userId ) ? wp_get_current_user() : get_user_by( 'id', $userId );
 
@@ -70,21 +81,21 @@ class Customer_Portal_For_Stripe_Stripe {
 	 * @param  string  $stripeCustomerId
 	 * @param  array|null  $stripeOptions
 	 *
-	 * @return \Stripe\Customer
-	 * @throws \Stripe\Exception\ApiErrorException
+	 * @return Customer
+	 * @throws ApiErrorException
 	 */
 	public function getCustomer( string $stripeCustomerId, $stripeOptions = null ) {
 		return $this->stripeClient->customers->retrieve( $stripeCustomerId, $stripeOptions );
 	}
 
 	/**
-	 * @param  \WP_User  $user
+	 * @param  WP_User  $user
 	 * @param  array|null  $stripeOptions
 	 *
-	 * @return \Stripe\Customer|null
-	 * @throws \Stripe\Exception\ApiErrorException
+	 * @return Customer|null
+	 * @throws ApiErrorException
 	 */
-	public function findCustomer( \WP_User $user, $stripeOptions = null ) {
+	public function findCustomer( WP_User $user, $stripeOptions = null ) {
 		$email     = strtolower( trim( $user->user_email ) );
 		$customers = $this->stripeClient->customers->all( [
 			'email' => $email,
@@ -102,13 +113,13 @@ class Customer_Portal_For_Stripe_Stripe {
 	}
 
 	/**
-	 * @param  \WP_User  $user
+	 * @param  WP_User  $user
 	 * @param  array|null  $stripeOptions
 	 *
-	 * @return \Stripe\Customer
-	 * @throws \Stripe\Exception\ApiErrorException
+	 * @return Customer
+	 * @throws ApiErrorException
 	 */
-	public function createCustomer( \WP_User $user, $stripeOptions = null ) {
+	public function createCustomer( WP_User $user, $stripeOptions = null ) {
 		$customer = $this->stripeClient->customers->create( [
 			'email' => $user->user_email,
 		], $stripeOptions );
@@ -119,10 +130,10 @@ class Customer_Portal_For_Stripe_Stripe {
 	}
 
 	/**
-	 * @param  \Stripe\Customer  $customer
+	 * @param Customer $customer
 	 *
-	 * @return \Stripe\SetupIntent
-	 * @throws \Stripe\Exception\ApiErrorException
+	 * @return SetupIntent
+	 * @throws ApiErrorException
 	 */
 	public function createSetupIntent( Customer $customer ) {
 		return $this->stripeClient->setupIntents->create( [
@@ -131,10 +142,10 @@ class Customer_Portal_For_Stripe_Stripe {
 	}
 
 	/**
-	 * @param  \Stripe\Customer  $customer
+	 * @param Customer $customer
 	 *
-	 * @return \Stripe\Collection
-	 * @throws \Stripe\Exception\ApiErrorException
+	 * @return Collection
+	 * @throws ApiErrorException
 	 */
 	public function getCards( Customer $customer ) {
 		$transientKey = 'cpfsStripeCards_' . $customer->id;
@@ -156,11 +167,11 @@ class Customer_Portal_For_Stripe_Stripe {
 	}
 
 	/**
-	 * @param  \Stripe\Customer  $customer
+	 * @param Customer $customer
 	 * @param  array|null  $stripeOptions
 	 *
-	 * @return \Stripe\Collection
-	 * @throws \Stripe\Exception\ApiErrorException
+	 * @return Collection
+	 * @throws ApiErrorException
 	 */
 	public function getInvoices( Customer $customer, $stripeOptions = null ) {
 		$transientKey = 'cpfsStripeInvoices_' . $customer->id;
@@ -182,10 +193,10 @@ class Customer_Portal_For_Stripe_Stripe {
 	}
 
 	/**
-	 * @param  \Stripe\Customer  $customer
+	 * @param Customer $customer
 	 *
-	 * @return \Stripe\Collection
-	 * @throws \Stripe\Exception\ApiErrorException
+	 * @return Collection
+	 * @throws ApiErrorException
 	 */
 	public function getSubscriptions( Customer $customer ) {
 		$transientKey = 'cpfsStripeSubscriptions_' . $customer->id;
@@ -231,7 +242,7 @@ class Customer_Portal_For_Stripe_Stripe {
 
 		try {
 			$subscription = $this->stripeClient->subscriptions->retrieve( $subscriptionId );
-		} catch ( \Stripe\Exception\ApiErrorException $e ) {
+		} catch ( ApiErrorException $e ) {
 			return wp_send_json_error( [
 				'error' => $e->getMessage(),
 			], 422 );
@@ -239,7 +250,7 @@ class Customer_Portal_For_Stripe_Stripe {
 
 		try {
 			$response = $this->stripeClient->subscriptions->cancel( $subscriptionId );
-		} catch ( \Stripe\Exception\ApiErrorException $e ) {
+		} catch ( ApiErrorException $e ) {
 			return wp_send_json_error( [
 				'error' => $e->getMessage(),
 			], 422 );
@@ -278,7 +289,7 @@ class Customer_Portal_For_Stripe_Stripe {
 					]
 				]
 			);
-		} catch ( \Stripe\Exception\ApiErrorException $e ) {
+		} catch ( ApiErrorException $e ) {
 			return wp_send_json_error( [
 				'error' => $e->getMessage(),
 			], 422 );
@@ -294,11 +305,11 @@ class Customer_Portal_For_Stripe_Stripe {
 
 	/**
 	 * @param  int  $user_id
-	 * @param  \WP_User  $oldUserData
+	 * @param  WP_User  $oldUserData
 	 *
-	 * @throws \Stripe\Exception\ApiErrorException
+	 * @throws ApiErrorException
 	 */
-	public function updateCustomerEmailAddress( int $user_id, \WP_User $oldUserData ) {
+	public function updateCustomerEmailAddress( int $user_id, WP_User $oldUserData ) {
 		global $cpfsStripe;
 		$user     = get_userdata( $user_id );
 		$oldEmail = strtolower( trim( $oldUserData->data->user_email ) );
@@ -314,7 +325,7 @@ class Customer_Portal_For_Stripe_Stripe {
 						'email' => $newEmail,
 					]
 				);
-			} catch ( \Stripe\Exception\ApiErrorException $e ) {
+			} catch ( ApiErrorException $e ) {
 				throw $e;
 			}
 

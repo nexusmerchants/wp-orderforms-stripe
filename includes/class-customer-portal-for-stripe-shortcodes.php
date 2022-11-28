@@ -2,6 +2,8 @@
 
 namespace WPCustomerPortalForStripe;
 
+use Exception;
+
 /**
  * Class Customer_Portal_For_Stripe_Shortcodes
  */
@@ -33,6 +35,10 @@ class Customer_Portal_For_Stripe_Shortcodes {
 			return __( "Please sign in to view this content.", CUSTOMER_PORTAL_FOR_STRIPE_PLUGIN_TEXTDOMAIN );
 		}
 
+        if (is_admin()) {
+            return __( "Stripe Customer Portal Shortcode: List Cards", CUSTOMER_PORTAL_FOR_STRIPE_PLUGIN_TEXTDOMAIN );
+        }
+
 		global $cpfsStripe;
 		$customer = $cpfsStripe->getOrCreateCustomer();
 		$items    = $cpfsStripe->getCards( $customer );
@@ -44,25 +50,33 @@ class Customer_Portal_For_Stripe_Shortcodes {
 	}
 
 	public function cpfs_add_card( $atts, $content = "" ) {
-		if ( ! is_user_logged_in() ) {
+        if ( ! is_user_logged_in() ) {
 			return __( "Please sign in to view this content.", CUSTOMER_PORTAL_FOR_STRIPE_PLUGIN_TEXTDOMAIN );
 		}
+
+        if (is_admin()) {
+            return __( "Stripe Customer Portal Shortcode: Add Card", CUSTOMER_PORTAL_FOR_STRIPE_PLUGIN_TEXTDOMAIN );
+        }
 
 		global $cpfsStripe;
 
 		try {
 			$customer = $cpfsStripe->getOrCreateCustomer();
-		} catch ( \Exception $e ) {
+		} catch ( Exception $e ) {
 			wp_die( $e->getMessage() );
 		}
 
 		if ( $customer ) {
 			try {
 				$setupIntent = $cpfsStripe->createSetupIntent( $customer );
-			} catch ( \Exception $e ) {
+			} catch ( Exception $e ) {
 				wp_die( $e->getMessage() );
 			}
 		}
+
+        if (empty($setupIntent)) {
+            wp_die(__("Could not create a setup intent. Did you set up your Stripe API keys in 'Settings > Stripe Customer Portal'?", CUSTOMER_PORTAL_FOR_STRIPE_PLUGIN_TEXTDOMAIN));
+        }
 
 		ob_start();
 		require_once CUSTOMER_PORTAL_FOR_STRIPE_PLUGIN_PATH . 'public/partials/add-card.php';
@@ -84,14 +98,14 @@ class Customer_Portal_For_Stripe_Shortcodes {
 
 		try {
 			$customer = $cpfsStripe->getOrCreateCustomer();
-		} catch ( \Exception $e ) {
+		} catch ( Exception $e ) {
 			wp_die( $e->getMessage() );
 		}
 
 		if ( $customer ) {
 			try {
 				$items = $cpfsStripe->getSubscriptions( $customer );
-			} catch ( \Exception $e ) {
+			} catch ( Exception $e ) {
 				wp_die( $e->getMessage() );
 			}
 		}
@@ -117,14 +131,14 @@ class Customer_Portal_For_Stripe_Shortcodes {
 
 		try {
 			$customer = $cpfsStripe->getOrCreateCustomer();
-		} catch ( \Exception $e ) {
+		} catch ( Exception $e ) {
 			wp_die( $e->getMessage() );
 		}
 
 		if ( $customer ) {
 			try {
 				$items = $cpfsStripe->getInvoices( $customer );
-			} catch ( \Exception $e ) {
+			} catch ( Exception $e ) {
 				wp_die( $e->getMessage() );
 			}
 		}

@@ -3,7 +3,7 @@ Contributors: nexusmerchants, tacocode
 Tags: stripe, billing, customer, subscription, invoice, checkout, credit-card
 Requires at least: 5.7.2
 Tested up to: 5.9.3
-Stable tag: 4.1.5
+Stable tag: 4.1.6
 Requires PHP: 7.4
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
@@ -50,6 +50,9 @@ manage their Stripe subscriptions, see their invoices & manage their cards:
 3. Place any of the `[cpfs_*]` shortcodes into your pages
 
 == Changelog ==
+
+= 4.1.6 =
+* Improve error handling
 
 = 4.1.5 =
 * [FIXED] Fix regex to allow saving of live keys. [Cameron Gilroy](https://github.com/nexusmerchants/wp-orderforms-stripe/pull/3)
